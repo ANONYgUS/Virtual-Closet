@@ -1,4 +1,4 @@
-*stores the design of something
+//stores the design of something
 
 public class Design implements FormalDriven{
 

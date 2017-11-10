@@ -1,5 +1,6 @@
 
 //, scores how well colors go together throughout an outfit
+import java.util.*;
 
 public class ColorTracker{
 
@@ -57,7 +58,7 @@ public class ColorTracker{
       sumY += c.getHue().getY() * tImpact;
     }
 
-    Hue meanHue = new Hue(Math.atan(sumY/sumX))
+    Hue meanHue = new Hue(Math.atan(sumY/sumX));
     double sum = 0;
 
     for(Color c: colors){

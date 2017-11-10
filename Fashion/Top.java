@@ -20,8 +20,8 @@ public class Top implements FormalDriven, DesignDriven, CollarDriven, SleeveDriv
 	/**
 	* Contructor for objects of class Top
 	*/
-	public Top(Material m, int th, int loo, Collar c, SleeveLength s, Texture t,
-							Temperature temp, Formality f, Design d, FrontConnection fC, ArrayList<Color> ac){
+	public Top(Material m, int lay, int th, int loo, Collar c, SleeveLength s, Texture t,
+							Temperature temp, Formality f, Design d, Material lin, FrontConnection fC, ArrayList<Color> ac){
 		material = m;
 		thickness = th;
 		looseness = loo;
@@ -141,7 +141,8 @@ public class Top implements FormalDriven, DesignDriven, CollarDriven, SleeveDriv
 	}
 
 	public void setFrontConnectionMode(FrontConnectionMode mode){
-		frontConnection.setFrontConnectionMode(FrontConnectionMode mode);
+		//frontConnection.setFrontConnectionMode(FrontConnectionMode mode);
+		// recursive method call, what's happening here?
 	}
 
 	public void calculateTemperature(){

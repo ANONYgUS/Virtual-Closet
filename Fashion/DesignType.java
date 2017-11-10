@@ -1,8 +1,8 @@
-*stores the types of designs
+//stores the types of designs
 
 public enum DesignType{
 
-
+  ; //enum require a semicolon before declaring private instance variables
   private Formality formality;
   private double mainColorImpact;
   private double otherColorImpact;

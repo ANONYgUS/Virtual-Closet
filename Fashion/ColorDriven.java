@@ -2,6 +2,9 @@
 /**
  * describes factors of clothing where formality matters
  */
+
+import java.util.*;
+
 public interface ColorDriven
 {
     /**

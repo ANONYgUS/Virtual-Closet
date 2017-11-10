@@ -1,11 +1,11 @@
-// stores any addons to a piece, such as being distressed, or having meny zippered pockets
+// stores any addons to a piece, such as being distressed, or having many zippered pockets
 
 public class AddOn implements FormalDriven{
 
   private String name;
   private Formality formality;
   private AddOnType addOnType;
-  
+
   /**
   * constructor for AddOn objects
   */

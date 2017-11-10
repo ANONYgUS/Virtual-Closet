@@ -1,4 +1,4 @@
-*stores the material of a piece
+//stores the material of a piece
 
 public class Material implements FormalDriven{
 
@@ -26,7 +26,7 @@ public class Material implements FormalDriven{
   * @return material type
   */
   public MaterialType getMaterialType(){
-    return sleeveType;
+    return materialType; // was sleeveType
   }
 
   /**

@@ -12,7 +12,7 @@ public class Formality
     /**
      * Constructor for objects of class Formality
      */
-    public Formality(int _min, int _max, int _impact)
+    public Formality(double _min, double _max, double _impact)
     {
         min = _min;
         max = _max;

@@ -18,7 +18,7 @@ public class TopStack{
   * @param t Top to add
   */
   public void add(Top t){
-    topList.add(Top t);
+    topList.add(t);
     thickness += t.getThickness();
   }
 

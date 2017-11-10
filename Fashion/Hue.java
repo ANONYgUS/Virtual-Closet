@@ -16,11 +16,11 @@ public class Hue{
   }
 
   public Hue(int i){
-
-    Hue(hToAngle(i));
+    xComp = Math.cos(hToAngle(i));
+    yComp = Math.sin(hToAngle(i));
   }
 
   public double hToAngle(int h){
-
+      return 0; //temp return value
   }
 }
