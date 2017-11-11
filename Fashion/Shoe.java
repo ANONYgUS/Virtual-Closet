@@ -2,7 +2,7 @@ import java.util.*;
 /**
  * represents a shoe
  */
-public class Shoe extends Piece implements ColorDriven, FormalDriven
+public class Shoe extends Piece
 {
     private ShoeType shoeType;
     private ArrayList<Color> colors;

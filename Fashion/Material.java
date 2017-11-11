@@ -1,6 +1,6 @@
 //stores the material of a piece
 
-public class Material implements FormalDriven{
+public class Material{
 
   private String name;
   private Formality formality;

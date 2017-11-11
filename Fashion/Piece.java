@@ -6,8 +6,8 @@
 public class Piece implements FormalDriven//used to be , ColorDriven, TempDriven
 {
 
-    private Formality formality;
-    private Temperature temperature;
+    public Formality formality;
+    public Temperature temperature;
 
 
     /**

@@ -84,13 +84,13 @@ public class Outfit implements Comparable<Outfit>{
     formalityScore = formalityTracker.getScore();
     formality = formalityTracker.getFormality();
 
-    score = collarScore * FashionMap.COLLAR_SCORE_WEIGHT
-            sleeveScore * FashionMap.SLEEVE_SCORE_WEIGHT
-            designScore * FashionMap.DESIGN_SCORE_WEIGHT
-            waistScore * FashionMap.WAIST_SCORE_WEIGHT
-            bottomShoeScore * FashionMap.BOTTOM_SHOE_SCORE_WEIGHT
-            colorScore * FashionMap.COLOR_SCORE_WEIGHT
-            formalityScore * FashionMap.FORMALITY_SCORE_WEIGHT
+    score = collarScore * FashionMap.COLLAR_SCORE_WEIGHT+
+            sleeveScore * FashionMap.SLEEVE_SCORE_WEIGHT+
+            designScore * FashionMap.DESIGN_SCORE_WEIGHT+
+            waistScore * FashionMap.WAIST_SCORE_WEIGHT+
+            bottomShoeScore * FashionMap.BOTTOM_SHOE_SCORE_WEIGHT+
+            colorScore * FashionMap.COLOR_SCORE_WEIGHT+
+            formalityScore * FashionMap.FORMALITY_SCORE_WEIGHT+
             FashionMap.SCORE_CONSTANT;
   }
 
@@ -172,7 +172,7 @@ public class Outfit implements Comparable<Outfit>{
   }
 
   public void doTemperatures(){
-    
+
   }
 
   public void doColors(){

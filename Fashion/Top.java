@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Top implements FormalDriven, DesignDriven, CollarDriven, SleeveDriven, ColorDriven {
+public class Top extends Piece{
 
 	private Material material;
 	private int layer;
@@ -107,7 +107,7 @@ public class Top implements FormalDriven, DesignDriven, CollarDriven, SleeveDriv
 	* @return sleevelength
 	*/
 	public SleeveLength getSleeveLength(){
-		return SleeveLength;
+		return sleevelength;
 	}
 
 	/**

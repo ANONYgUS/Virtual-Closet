@@ -1,7 +1,7 @@
 //stores the sleeve a top has
 import java.util.*;
 
-public class Sleeve implements ColorDriven, FormalDriven{
+public class Sleeve{
 
   private Color color;
   private String name;

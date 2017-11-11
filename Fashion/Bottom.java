@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Bottom extends Piece implements FormalDriven, DesignDriven, TightnessDriven, ColorDriven {
+public class Bottom extends Piece{
 
 	private Material material;
 	private Design design;
@@ -28,13 +28,6 @@ public class Bottom extends Piece implements FormalDriven, DesignDriven, Tightne
 		formality = f;
 		colors = c;
 	}
-
-	public Comparison compareDesign(){ //must override method from DesignDriven
-
-	}
-
-	
-
 
 	/**
 	* gets the Material of the Bottom

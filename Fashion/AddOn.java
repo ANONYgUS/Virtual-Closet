@@ -1,6 +1,6 @@
 // stores any addons to a piece, such as being distressed, or having many zippered pockets
 
-public class AddOn implements FormalDriven{
+public class AddOn{
 
   private String name;
   private Formality formality;

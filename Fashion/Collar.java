@@ -2,7 +2,7 @@
 
 import java.util.*;
 
-public class Collar implements ColorDriven, FormalDriven{
+public class Collar implements{
 
   private CollarType collarType;
   private String name;

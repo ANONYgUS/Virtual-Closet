@@ -2,7 +2,7 @@
 
 import java.util.*;
 
-public enum FrontConnection implements FormalDriven{
+public enum FrontConnection{
 
   ZIPPER(new Formality(0,7,0.2), new Pile(FrontConnectionMode.ZIPPED, FrontConnectionMode.UNZIPPED));
 

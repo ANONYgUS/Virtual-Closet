@@ -1,6 +1,6 @@
 //stores the color of something
 
-public class Color implements FormalDriven{
+public class Color{
 
 
   private String name;
