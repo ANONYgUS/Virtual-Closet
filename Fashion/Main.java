@@ -7,8 +7,9 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.util.*;
 
-public class Main extends Application {
+public class newMain extends Application {
     public static void main(String[] args) {
 
         //data process before gui launch
@@ -52,15 +53,15 @@ public class Main extends Application {
         }
 
         //create closet
-        Closet closet = new Closet();
+        //Closet closet = new Closet();
 
         //process data from files into closet
         Scanner fileScanner = new Scanner(tops);
         fileScanner.nextLine();
         while(fileScanner.hasNextLine()){
           String[] c = fileScanner.nextLine().split(",");
-          Top t = new Top(c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7], c[8], c[9], c[10], c[11], c[12], c[13]);
-          closet.addPiece(t);
+          //Top t = new Top(c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7], c[8], c[9], c[10], c[11], c[12], c[13]);
+          //closet.addPiece(t);
         }
         fileScanner.close();
 
@@ -68,8 +69,8 @@ public class Main extends Application {
         fileScanner.nextLine();
         while(fileScanner.hasNextLine()){
           String[] c = fileScanner.nextLine().split(",");
-          Bottom b = new Bottom(c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7], c[8]);
-          closet.addPiece(b);
+          //Bottom b = new Bottom(c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7], c[8]);
+          //closet.addPiece(b);
         }
         fileScanner.close();
 
@@ -77,35 +78,92 @@ public class Main extends Application {
         fileScanner.nextLine();
         while(fileScanner.hasNextLine()){
           String[] c = fileScanner.nextLine().split(",");
-          Shoe s = new Bottom(c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7]);
-          closet.addPiece(s);
+          //Shoe s = new Bottom(c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7]);
+          //closet.addPiece(s);
         }
         fileScanner.close();
 
 
 
         primaryStage.setTitle("Virtual Closet");
+
+        //getOutfits Button
         Button getOutfits = new Button();
         getOutfits.setText("Get Outfits!");
         getOutfits.setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent event) {
               // get temp from some API
               int temp = 60;
 
               // get formality from a field in the gui
-              Formality f = new Formality(0,0,0);
+              //Formality f = new Formality(0,0,0);
 
               // receive list of outfits
-              ArrayList<Outfit> suggested = closet.getOutfits(temp, f);
+              //ArrayList<Outfit> suggested = closet.getOutfits(temp, f);
 
               //present outfits to user
             }
         });
 
+        //addShoe Button
+        Button addShoe = new Button();
+        addShoe.setText("Add Shoe");
+        addShoe.setOnAction(new EventHandler<ActionEvent>(){
+          @Override
+          public void handle(ActionEvent event) {
+            Stage addShoeStage = new Stage();
+            //fields for shoe details
+
+            addShoeStage.show();
+            //Color soleColor = new Color(ColorName.);
+            //get Shoe details from fields
+
+
+          }
+        });
+        //addBottom Button
+        Button addBottom = new Button();
+        addBottom.setText("Add Bottom");
+        addBottom.setOnAction(new EventHandler<ActionEvent>(){
+          @Override
+          public void handle(ActionEvent event) {
+            Stage addBottomStage = new Stage();
+            //fields for shoe details
+
+            addBottomStage.show();
+            //Color soleColor = new Color(ColorName.);
+            //get Shoe details from fields
+
+
+          }
+        });
+        //addTop Button
+        Button addTop = new Button();
+        addTop.setText("Add Top");
+        addTop.setOnAction(new EventHandler<ActionEvent>(){
+          @Override
+          public void handle(ActionEvent event) {
+            Stage addTopStage = new Stage();
+            //fields for shoe details
+
+            addTopStage.show();
+            //Color soleColor = new Color(ColorName.);
+            //get Shoe details from fields
+
+
+          }
+        });
+        addShoe.setTranslateY(50);
+        addBottom.setTranslateY(50);
+        addBottom.setTranslateX(120);
+        addTop.setTranslateY(50);
+        addTop.setTranslateX(-120);
         StackPane root = new StackPane();
-        root.getChildren().add(btn);
+        root.getChildren().add(getOutfits);
+        root.getChildren().add(addShoe);
+        root.getChildren().add(addBottom);
+        root.getChildren().add(addTop);
         primaryStage.setScene(new Scene(root, 1000, 800));
         primaryStage.show();
     }

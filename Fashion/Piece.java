@@ -3,8 +3,7 @@
  * Base class for wardrobe items
  *
  */
-public class Piece implements FormalDriven//used to be , ColorDriven, TempDriven
-{
+public class Piece {
 
     public Formality formality;
     public Temperature temperature;

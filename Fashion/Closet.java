@@ -98,6 +98,7 @@ public class Closet
         if (top.getLooseness() <= FashionMap.MAX_LOOSENESS_DIFF){
             Top clone = top.clone();
           for(FrontConnectionMode mode: top.getFrontConnection().getModes()){
+            mode = (FrontConnectionMode)(mode);
             clone.setFrontConnectionMode(mode);
             TopStack stack = new TopStack();
             stack.add(clone);

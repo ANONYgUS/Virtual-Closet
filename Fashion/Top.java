@@ -142,7 +142,8 @@ public class Top extends Piece{
 		return frontConnection;
 	}
 
-	public void setFrontConnectionMode(FrontConnectionMode mode){
+	public void setFrontConnectionMode(Object mode){
+		mode = (FrontConnectionMode)(mode);
 		//frontConnection.setFrontConnectionMode(FrontConnectionMode mode);
 		// recursive method call, what's happening here?
 	}
@@ -184,6 +185,6 @@ public class Top extends Piece{
 	}
 
 	public Top clone(){
-		return new Top(); // I need to write this in
+		return this; // I need to write this in
 	}
 }

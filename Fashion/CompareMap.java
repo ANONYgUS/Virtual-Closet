@@ -3,14 +3,14 @@ import java.util.*;
 
 public class CompareMap{
 
-  private HashMap<String, double> map;
+  private HashMap<String, Double> map;
 
   /**
   * constructor for CompareMap
   * adds all predetermined comparisons
   */
   public CompareMap(){
-    map = new HashMap<String, Comparison>();
+    map = new HashMap<String, Double>(); //used to be String, Comparison
 
 
   }

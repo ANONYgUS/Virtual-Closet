@@ -2,7 +2,7 @@
 
 import java.util.*;
 
-public class Collar implements{
+public class Collar {
 
   private CollarType collarType;
   private String name;
