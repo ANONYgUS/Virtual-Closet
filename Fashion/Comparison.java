@@ -8,11 +8,8 @@ public class Comparison
     // instance variables - replace the example below with your own
     private double rating;
     private double impact;
-    private double colorImpactFactor;  // relevant when comparison between two factors of clothing indicates change in impact of color
-    private double formalImpactFactor;
-    private double sleeveImpactFactor;
-    private double frontConnectionImpactFactor;
-    private double collarImpactFactor;
+    private double upperImpact;
+    private double lowerImpact;
 
 
 
@@ -44,15 +41,15 @@ public class Comparison
      * returns how much color impact is going to be affected from 0 to 1
      * @return color impact factor
      */
-    public double getCIF(){
-        return colorImpactFactor;
+    public double getUpperImpact(){
+        return upperImpact;
     }
 
     /**
      * returns how much formality impact is going to be affected from 0 to 1
      * @return formal impact factor
      */
-    public double getFIF(){
-        return formalImpactFactor;
+    public double getLowerImpact(){
+        return lowerImpact;
     }
 }

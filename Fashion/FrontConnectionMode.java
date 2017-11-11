@@ -3,6 +3,7 @@
 public enum FrontConnectionMode{
 
   UNZIPPED(5, new Formality(0,7,0.3)),
+  ZIPPED()
 
   private int temperature;
   private Formality formality;
