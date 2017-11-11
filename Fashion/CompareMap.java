@@ -1,4 +1,5 @@
 // stores every raw comparison value in a HashMap
+import java.util.*;
 
 public class CompareMap{
 

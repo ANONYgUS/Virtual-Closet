@@ -14,6 +14,5 @@ public interface FrontConnectionDriven
      * @param f front connection driven factor to be compared to
      * @return comparison
      */
-    Comparison compareFrontConnections(FrontConnectionDriven f){
-    }
+    Comparison compareFrontConnections(FrontConnectionDriven f);
 }

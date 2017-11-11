@@ -1,5 +1,7 @@
 // stores a stack of tops and makes up a component of an outfit
 
+import java.util.*;
+
 public class TopStack{
 
   private ArrayList<Top> topList;

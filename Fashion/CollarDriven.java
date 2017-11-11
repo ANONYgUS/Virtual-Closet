@@ -14,6 +14,5 @@ public interface CollarDriven
      * @param c collar driven factor to be compared to
      * @return comparison
      */
-    Comparison compareCollars(CollarDriven c){
-    }
+    Comparison compareCollars(CollarDriven c);
 }

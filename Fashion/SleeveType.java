@@ -1,4 +1,4 @@
-*stores all types of sleeves
+//stores all types of sleeves
 
 public enum SleeveType{
 

@@ -1,4 +1,4 @@
-*stores the type of waist the top has
+//stores the type of waist the top has
 
 public class TopWaist extends WaistFactor implements FormalDriven{
 

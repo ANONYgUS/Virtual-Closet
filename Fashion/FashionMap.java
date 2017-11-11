@@ -11,4 +11,5 @@ public class FashionMap{
   public static final double MONO_COLOR_MULTIPLIER = 1;
   public static final double SATURATION_IMPACT_FACTOR = 1; //temp value
   public static final double BRIGHTNESS_IMPACT_FACTOR = 1; //temp value
+  public static final int TEMPERATURE_SCORE_CONSTANT = 1; //temp value
 }

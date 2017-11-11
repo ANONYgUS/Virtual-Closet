@@ -1,4 +1,5 @@
-*stores the sleeve a top has
+//stores the sleeve a top has
+import java.util.*;
 
 public class Sleeve implements ColorDriven, FormalDriven{
 

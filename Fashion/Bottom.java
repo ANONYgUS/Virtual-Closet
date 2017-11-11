@@ -1,9 +1,11 @@
-public class Bottom implements FormalDriven, DesignDriven, TightnessDriven, SleeveDriven, ColorDriven {
+import java.util.*;
+
+public class Bottom extends Piece implements FormalDriven, DesignDriven, TightnessDriven, ColorDriven {
 
 	private Material material;
 	private Design design;
 	private Tightness tightness;
-	private Length length;
+	private int length;
 	private Texture texture;
 	private Material lining;
 	private ArrayList<Color> colors;
@@ -16,7 +18,7 @@ public class Bottom implements FormalDriven, DesignDriven, TightnessDriven, Slee
 	/**
 	* Contructor for objects of class Bottom
 	*/
-	public Bottom(Material m, Design d, Tightness ti, Length l, Texture t, Temperature temp, Formality f, ArrayList<Color> c){
+	public Bottom(Material m, Design d, Tightness ti, int l, Texture t, Temperature temp, Formality f, ArrayList<Color> c){
 		material = m;
 		design = d;
 		tightness = ti;
@@ -26,6 +28,13 @@ public class Bottom implements FormalDriven, DesignDriven, TightnessDriven, Slee
 		formality = f;
 		colors = c;
 	}
+
+	public Comparison compareDesign(){ //must override method from DesignDriven
+
+	}
+
+	
+
 
 	/**
 	* gets the Material of the Bottom
@@ -74,7 +83,7 @@ public class Bottom implements FormalDriven, DesignDriven, TightnessDriven, Slee
 	/**
 	* gets the Length of the Bottom
 	*/
-	public Length getLength(){
+	public int getLength(){
 		return length;
 	}
 

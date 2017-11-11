@@ -1,6 +1,6 @@
 // scores how well the outfit accomodates the temperature
 // also stores the ideal temperature of the outfit
-
+import java.util.*;
 public class TemperatureTracker{
 
   private ArrayList<Temperature> temperatures;
@@ -56,6 +56,6 @@ public class TemperatureTracker{
       tImpact += t.getImpact();
     }
 
-    temperature = sum / tImpact;
+    temperature = (int)(sum / tImpact);
   }
 }

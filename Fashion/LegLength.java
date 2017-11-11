@@ -1,4 +1,4 @@
-*stores the length of the leg of a bottom
+//stores the length of the leg of a bottom
 
 public class LegLength extends WaistFactor implements FormalDriven, WaistDriven{
 

@@ -14,6 +14,5 @@ public interface DesignDriven
      * @param d design driven factor to be compared to
      * @return comparison
      */
-    Comparison compareDesign(DesignDriven c){
-    }
+    Comparison compareDesign(DesignDriven c);
 }
