@@ -2,8 +2,12 @@
 
 public enum FrontConnectionMode{
 
+<<<<<<< HEAD
   UNZIPPED(5, new Formality(0,7,0.3)),
-  ZIPPED(1, new Formality(0,7,0.3)); //temp values
+  ZIPPED()
+=======
+  UNZIPPED(5, new Formality(0,7,0.3));
+>>>>>>> 1ac9b9be8206465f19c43c3c001653dab5bbd061
 
   private int temperature;
   private Formality formality;

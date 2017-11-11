@@ -25,7 +25,7 @@ public class Outfit implements Comparable<Outfit>{
   private double WaistScore;
 
   private Tracker sleeveTracker;
-  private double SleeveScore;
+  private double sleeveScore;
 
   private Tracker frontConnectionTracker;
   private double frontConnectionScore;
@@ -36,8 +36,23 @@ public class Outfit implements Comparable<Outfit>{
   /**
   * constructor for Outfit
   */
-  public Outfit(){
+  public Outfit(TopStack ts, Bottom b, Shoe s){
+    topStack = ts;
+    bottom = b;
+    shoe = s;
 
+    score = FashionMap.DEFAULT_OUTFIT_SCORE;
+    formality = FashionMap.NULL_FORMALITY;
+    formalityScore = FashionMap.DEFAULT_OUTFIT_SCORE;;
+    colorScore = FashionMap.DEFAULT_OUTFIT_SCORE;
+    designscore = FashionMap.DEFAULT_OUTFIT_SCORE;
+    collarScore = FashionMap.DEFAULT_OUTFIT_SCORE;
+    waistScore = FashionMap.DEFAULT_OUTFIT_SCORE;
+    sleeveScore = FashionMap.DEFAULT_OUTFIT_SCORE;
+    frontConnectionScore = FashionMap.DEFAULT_OUTFIT_SCORE;
+    bottomShoeScore = FashionMap.DEFAULT_OUTFIT_SCORE;
+
+    formalityTracker = new FormalityTracker();
   }
 
   public int compareTo(Outfit o){
@@ -48,55 +63,120 @@ public class Outfit implements Comparable<Outfit>{
     else return 0;
   }
 
-  public double calculateScore(){
-
-    Top t1;
-    Top t2;
-
-    // compare all the factors accross all types of comparisons
-    int size = topStack.size();
-    for(int i = size-1; i > 0; i--){ // for each combination of tops
-      t1 = topStack.getTop(i);
-
-      for(int j = i-1; j > -1; j--){
-        t2 = topStack.getTop(j);
-        Comparison designC = t1.compareDesigns(t2);
-        adjustTrackerImpacts();
-        designTracker.addComparison(designC);
-
-        Comparison sleeveC = t1.compareSleeves(t2);
-        adjustTrackerImpacts();
-        sleeveTracker.addComparison(sleeveC);
-
-        Comparison collarC = t1.compareCollars(t2);
-        adjustTrackerImpacts();
-        collarTracker.addComparison(collarC);
-
-        Comparison waistC = t1.compareWaists(t2);
-        adjustTrackerImpacts();
-        waistTracker.addComparison(waistC);
-
-        Comparison frontConnectionC = t1.compareFrontConnections(t2);
-        adjustTrackerImpacts();
-        frontConnectionTracker.addComparison(frontConnectionC);
-
-        Comparison colorC = t1.compareDesigns(t2);
-        adjustTrackerImpacts();
-        designTracker.addComparison(designC);
-
-        Comparison designC = t1.compareDesigns(t2);
-        adjustTrackerImpacts();
-        designTracker.addComparison(designC);
-      }
-    }
+  public void calculateScores(){
+    compareFrontConnections();
+    compareCollars();
+    compareSleeves();
+    compareDesigns();
+    compareWaists();
+    copareBottomShoe();
+    doColors();
     doFormalities();
 
+    frontConnectionScore = frontConnectionTracker.getScore();
+    collarScore = collarTracker.getScore();
+    sleeveScore = sleeveTracker.getScore();
+    designScore = designTracker.getScore();
+    waistScore = waistTracker.getScore();
+    bottomShoeScore = bottomShoeTracker.getScore();
+    colorScore = colorTracker.getScore();
 
+    formalityScore = formalityTracker.getScore();
+    formality = formalityTracker.getFormality();
+
+    score = collarScore * FashionMap.COLLAR_SCORE_WEIGHT
+            sleeveScore * FashionMap.SLEEVE_SCORE_WEIGHT
+            designScore * FashionMap.DESIGN_SCORE_WEIGHT
+            waistScore * FashionMap.WAIST_SCORE_WEIGHT
+            bottomShoeScore * FashionMap.BOTTOM_SHOE_SCORE_WEIGHT
+            colorScore * FashionMap.COLOR_SCORE_WEIGHT
+            formalityScore * FashionMap.FORMALITY_SCORE_WEIGHT
+            FashionMap.SCORE_CONSTANT;
+  }
+
+  public void compareFrontConnections(){
+    int size = topStack.size();
+    for(int i = 0; i<size-1; i++){
+      for (int j = topStack.size() - 1; j>i; j--){
+        FrontConnection f1 = topStack.get(j).getFrontConnection();
+
+        FrontConnection f2 = topStack.get(j-1-i).getFrontConnection();
+        Comparison c = FashionMap.compareFrontConnections(f1, f2);
+        f1.setImpact(c.getUpperImpact());
+        f2.setImpact(c.getLowerImpact());
+
+        frontConnectionTracker.add(c);
+
+      }
+    }
+  }
+
+  public void compareCollars(){
+    int size = topStack.size();
+    for(int i = 0; i<size-1; i++){
+      for (int j = topStack.size() - 1; j>i; j--){
+        Collar c1 = topStack.get(j).getCollar();
+        Collar c2 = topStack.get(j-1-i).getCollar();
+        Comparison c = CompareMap.compareCollars(c1, c2);
+        c1.setImpact(c.getUpperImpact());
+        c2.setImpact(c.getLowerImpact());
+        ImpactTracker.add(c);
+      }
+    }
+  }
+
+  public void compareSleeves(){
+    int size = topStack.size();
+    for(int i = 0; i<size-1; i++){
+      for (int j = topStack.size() - 1; j>i; j--){
+        Sleeve s1 = topStack.get(j).getSleeve();
+        Sleeve s2 = topStack.get(j-1-i).getSleeve();
+        Comparison c = CompareMap.compareSleeves(c1, c2);
+        s1.setImpact(c.getUpperImpact());
+        s2.setImpact(c.getLowerImpact());
+        SleeveTracker.add(c);
+      }
+    }
+  }
+
+  public void compareTopWaists(){
+    int size = topStack.size();
+    for(int i = 0; i<size-1; i++){
+      for (int j = topStack.size() - 1; j>i; j--){
+        TopWaist t1 = topStack.get(j).getTopWaist();
+        TopWaist t2 = topStack.get(j-1-i).getTopWaist();
+        Comparison c = CompareMap.compareTopWaists(t1, t2);
+        t1.setImpact(c.getUpperImpact());
+        t2.setImpact(c.getLowerImpact());
+        TopWaistTracker.add(c);
+      }
+    }
+  }
+
+  public void compareDesigns(){
+    int size = topStack.size();
+    for(int i = 0; i<size-1; i++){
+      for (int j = topStack.size() - 1; j>i; j--){
+        Design d1 = topStack.get(j).getDesign();
+        Design d2 = topStack.get(j-1-i).getDesign();
+        Comparison c = CompareMap.compareDesigns(d1, d2);
+        d1.setImpact(c.getUpperImpact());
+        d2.setImpact(c.getLowerImpact());
+        DesignTracker.add(c);
+      }
+    }
+  }
+
+  public void compareBottomShoe(){
 
   }
 
-  public void adjustTrackerImpacts(Comparison c){
-    designTracker.setImpact(c.getDesignImpactFactor()); // repeat this for the other things
+  public void doTemperatures(){
+    
+  }
+
+  public void doColors(){
+
   }
 
   public void doFormalities(){
