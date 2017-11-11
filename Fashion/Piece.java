@@ -3,7 +3,7 @@
  * Base class for wardrobe items
  *
  */
-public class Piece implements FormalDriven, TempDriven, ColorDriven
+public class Piece implements FormalDriven, ColorDriven //,TempDriven
 {
 
     private Formality formality;
@@ -63,3 +63,4 @@ public class Piece implements FormalDriven, TempDriven, ColorDriven
     {
         return false;
     }
+}

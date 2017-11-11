@@ -1,4 +1,4 @@
-// stores any added on qualities to a piece, such as being distressed, or having zippered pockets
+// stores any addons to a piece, such as being distressed, or having many zippered pockets
 
 public class AddOn implements FormalDriven{
 

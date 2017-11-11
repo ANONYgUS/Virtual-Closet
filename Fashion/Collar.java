@@ -1,4 +1,4 @@
-*stores the collar a top has
+//stores the collar a top has
 
 public Collar implements ColorDriven, FormalDriven{
 

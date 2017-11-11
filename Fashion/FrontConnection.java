@@ -2,7 +2,7 @@
 
 public enum FrontConnection implements FormalDriven{
 
-  ZIPPER(new Formality(0,7,0.2), new Pile<FrontConnectionMode>(FrontConnectionMode.ZIPPED, FrontConnectionMode.UNZIPPED)),
+  ZIPPER(new Formality(0,7,0.2), new Pile<FrontConnectionMode>(FrontConnectionMode.ZIPPED, FrontConnectionMode.UNZIPPED));
 
   private ArrayList<FrontConnectionMode> modes;
   private FrontConnectionMode frontConnectionMode;

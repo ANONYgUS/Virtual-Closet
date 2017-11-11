@@ -2,6 +2,7 @@
 
 public enum ShoeType implements FormalDriven{
 
+  ; //semicolon before private instance variables
   private String name;
   private Formality formality;
   private int height;
@@ -10,7 +11,7 @@ public enum ShoeType implements FormalDriven{
   /**
   * constructor for shoe types
   */
-  public ShoeType(){
+  ShoeType(){ //can't have public constructor (without code)
 
   }
 

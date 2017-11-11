@@ -53,6 +53,7 @@ public class Closet
      * marks necessary pieces of outfit as dirty
      */
     public void wear(Outfit o){
+
     }
 
     /**
@@ -66,6 +67,7 @@ public class Closet
      * makes dirty clothes clean
      */
     public void wash(){
+
     }
 
     /**
@@ -96,7 +98,7 @@ public class Closet
         if (top.getLooseness() <= FashionMap.MAX_LOOSENESS_DIFF){
             Top clone = top.clone();
           for(FrontConnectionMode mode: top.getFrontConnection().getModes()){
-            clone.setFrontConnectionMode(mode)
+            clone.setFrontConnectionMode(mode);
             TopStack stack = new TopStack();
             stack.add(clone);
             returned.add(clone);

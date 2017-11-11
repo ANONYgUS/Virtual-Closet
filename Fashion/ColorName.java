@@ -1,9 +1,9 @@
-*stores the names of colors and their hsbs
+//stores the names of colors and their hsbs
 
 public enum ColorName{
 
-  
 
+  ; //semicolon before private instance variables
   private Formality formality;
   private Hue hue;
   private int saturation;
@@ -27,4 +27,9 @@ public enum ColorName{
   public int getBrightness(){
     return brightness;
   }
+
+  public Formality getFormality(){
+    return formality;
+  }
+
 }

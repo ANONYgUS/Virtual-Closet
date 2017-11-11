@@ -33,7 +33,7 @@ public class Temperature{
   * returns the radius of the range of acceptable temperatures of the factor of clothing
   * @return radius of range of acceptable temperatures
   */
-  public int getApprox(){
+  public int getRange(){
     return range;
   }
 }
