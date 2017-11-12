@@ -29,6 +29,14 @@ public class Color{
     return formality;
   }
 
+  public Hue getHue(){
+      return hue;
+  }
+
+  public int getBrightness(){
+    return brightness;
+  }
+
   /**
   * sets the impact of the color to a double
   * @param d double to set the impact to

@@ -24,4 +24,21 @@ public class CompareMap{
 
     return map.get(s1+s2);
   }
+
+  public static Comparison compareCollars(Collar a, Collar b){
+    return new Comparison(); //temp value
+  }
+
+  public static Comparison compareSleeves(Sleeve a, Sleeve b){
+    return new Comparison(); //temp value
+  }
+
+  public static Comparison compareTopWaists(TopWaist a, TopWaist b){
+    return new Comparison(); //temp value
+  }
+
+  public static Comparison compareDesigns(Design a, Design b){
+    return new Comparison(); //temp value
+  }
+
 }

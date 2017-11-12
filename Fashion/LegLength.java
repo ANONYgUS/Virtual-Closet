@@ -25,8 +25,8 @@ public class LegLength extends WaistFactor{
   * returns the type of leg length
   * @return leg length type
   */
-  public SleeveType getLegLengthType(){
-    return sleeveType;
+  public LegLengthType getLegLengthType(){
+    return legLengthType;
   }
 
 

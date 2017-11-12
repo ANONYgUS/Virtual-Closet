@@ -40,6 +40,10 @@ public class TopStack{
     return topList.get(i);
   }
 
+  public ArrayList<Top> getTops(){
+    return topList;
+  }
+
   public int size(){
     return topList.size();
   }

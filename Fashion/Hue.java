@@ -23,4 +23,12 @@ public class Hue{
   public double hToAngle(int h){
       return 0; //temp return value
   }
+
+  public double getX(){
+      return xComp;
+  }
+
+  public double getY(){
+      return yComp;
+  }
 }

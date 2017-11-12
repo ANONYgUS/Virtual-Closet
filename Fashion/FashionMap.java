@@ -22,4 +22,10 @@ public class FashionMap{
   public static final double COLOR_SCORE_WEIGHT = 1; //temp value
   public static final double FORMALITY_SCORE_WEIGHT = 1; //temp value
   public static final double SCORE_CONSTANT = 1; //temp value
+  public static final double BRIGHTNESS_COLOR_MULTIPLIER = 1; //temp value
+  public static final double BRIGHTNESS_SCORE_CONSTANT = 1; //temp value
+
+  public static Comparison compareFrontConnections(FrontConnection a, FrontConnection b){
+    return new Comparison(); //temp value
+  }
 }

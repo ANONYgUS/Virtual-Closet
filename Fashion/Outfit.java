@@ -115,8 +115,8 @@ public class Outfit implements Comparable<Outfit>{
     int size = topStack.size();
     for(int i = 0; i<size-1; i++){
       for (int j = topStack.size() - 1; j>i; j--){
-        Collar c1 = topStack.get(j).getCollar();
-        Collar c2 = topStack.get(j-1-i).getCollar();
+        Collar c1 = topStack.getTop(j).getCollar();
+        Collar c2 = topStack.getTop(j-1-i).getCollar();
         Comparison c = CompareMap.compareCollars(c1, c2);
         c1.setImpact(c.getUpperImpact());
         c2.setImpact(c.getLowerImpact());
@@ -129,9 +129,9 @@ public class Outfit implements Comparable<Outfit>{
     int size = topStack.size();
     for(int i = 0; i<size-1; i++){
       for (int j = topStack.size() - 1; j>i; j--){
-        Sleeve s1 = topStack.get(j).getSleeve();
-        Sleeve s2 = topStack.get(j-1-i).getSleeve();
-        Comparison c = CompareMap.compareSleeves(c1, c2);
+        Sleeve s1 = topStack.getTop(j).getSleeve();
+        Sleeve s2 = topStack.getTop(j-1-i).getSleeve();
+        Comparison c = CompareMap.compareSleeves(s1, s2);
         s1.setImpact(c.getUpperImpact());
         s2.setImpact(c.getLowerImpact());
         SleeveTracker.add(c);
@@ -143,8 +143,8 @@ public class Outfit implements Comparable<Outfit>{
     int size = topStack.size();
     for(int i = 0; i<size-1; i++){
       for (int j = topStack.size() - 1; j>i; j--){
-        TopWaist t1 = topStack.get(j).getTopWaist();
-        TopWaist t2 = topStack.get(j-1-i).getTopWaist();
+        TopWaist t1 = topStack.getTop(j).getTopWaist();
+        TopWaist t2 = topStack.getTop(j-1-i).getTopWaist();
         Comparison c = CompareMap.compareTopWaists(t1, t2);
         t1.setImpact(c.getUpperImpact());
         t2.setImpact(c.getLowerImpact());
@@ -157,8 +157,8 @@ public class Outfit implements Comparable<Outfit>{
     int size = topStack.size();
     for(int i = 0; i<size-1; i++){
       for (int j = topStack.size() - 1; j>i; j--){
-        Design d1 = topStack.get(j).getDesign();
-        Design d2 = topStack.get(j-1-i).getDesign();
+        Design d1 = topStack.getTop(j).getDesign();
+        Design d2 = topStack.getTop(j-1-i).getDesign();
         Comparison c = CompareMap.compareDesigns(d1, d2);
         d1.setImpact(c.getUpperImpact());
         d2.setImpact(c.getLowerImpact());
@@ -181,12 +181,12 @@ public class Outfit implements Comparable<Outfit>{
 
   public void doFormalities(){
 
-    for(Top top: topStack){
-      formalityTracker.addFormality(top.getMaterial.getFormality());
+    for(Top top: topStack.getTops()){
+      formalityTracker.addFormality(top.getMaterial().getFormality());
       // etc
     }
 
-    formalityTracker.addFormality(bottom.getMaterial.getFormality());
+    formalityTracker.addFormality(bottom.getMaterial().getFormality());
     //etc
   }
 
