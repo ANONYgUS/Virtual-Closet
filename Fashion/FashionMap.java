@@ -12,4 +12,14 @@ public class FashionMap{
   public static final double SATURATION_IMPACT_FACTOR = 1; //temp value
   public static final double BRIGHTNESS_IMPACT_FACTOR = 1; //temp value
   public static final int TEMPERATURE_SCORE_CONSTANT = 1; //temp value
+  public static final double DEFAULT_OUTFIT_SCORE = 1; //temp value
+  public static final Formality NULL_FORMALITY = new Formality(0, 0, 0); //temp value
+  public static final double COLLAR_SCORE_WEIGHT = 1; //temp value
+  public static final double SLEEVE_SCORE_WEIGHT = 1; //temp value
+  public static final double DESIGN_SCORE_WEIGHT = 1; //temp value
+  public static final double WAIST_SCORE_WEIGHT = 1; //temp value
+  public static final double BOTTOM_SHOE_SCORE_WEIGHT = 1; //temp value
+  public static final double COLOR_SCORE_WEIGHT = 1; //temp value
+  public static final double FORMALITY_SCORE_WEIGHT = 1; //temp value
+  public static final double SCORE_CONSTANT = 1; //temp value
 }

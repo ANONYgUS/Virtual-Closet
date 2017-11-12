@@ -43,4 +43,8 @@ public class TopStack{
   public int size(){
     return topList.size();
   }
+
+  public int getThickness(){
+      return thickness;
+  }
 }

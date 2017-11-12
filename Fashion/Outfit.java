@@ -22,7 +22,7 @@ public class Outfit implements Comparable<Outfit>{
   private double collarScore;
 
   private Tracker waistTracker;
-  private double WaistScore;
+  private double waistScore;
 
   private Tracker sleeveTracker;
   private double sleeveScore;
@@ -45,7 +45,7 @@ public class Outfit implements Comparable<Outfit>{
     formality = FashionMap.NULL_FORMALITY;
     formalityScore = FashionMap.DEFAULT_OUTFIT_SCORE;;
     colorScore = FashionMap.DEFAULT_OUTFIT_SCORE;
-    designscore = FashionMap.DEFAULT_OUTFIT_SCORE;
+    designScore = FashionMap.DEFAULT_OUTFIT_SCORE;
     collarScore = FashionMap.DEFAULT_OUTFIT_SCORE;
     waistScore = FashionMap.DEFAULT_OUTFIT_SCORE;
     sleeveScore = FashionMap.DEFAULT_OUTFIT_SCORE;
@@ -68,8 +68,8 @@ public class Outfit implements Comparable<Outfit>{
     compareCollars();
     compareSleeves();
     compareDesigns();
-    compareWaists();
-    copareBottomShoe();
+    compareTopWaists();
+    compareBottomShoe();
     doColors();
     doFormalities();
 
@@ -82,7 +82,7 @@ public class Outfit implements Comparable<Outfit>{
     colorScore = colorTracker.getScore();
 
     formalityScore = formalityTracker.getScore();
-    formality = formalityTracker.getFormality();
+    formality = formalityTracker.getFormality(); //object or double?
 
     score = collarScore * FashionMap.COLLAR_SCORE_WEIGHT+
             sleeveScore * FashionMap.SLEEVE_SCORE_WEIGHT+
@@ -98,9 +98,9 @@ public class Outfit implements Comparable<Outfit>{
     int size = topStack.size();
     for(int i = 0; i<size-1; i++){
       for (int j = topStack.size() - 1; j>i; j--){
-        FrontConnection f1 = topStack.get(j).getFrontConnection();
+        FrontConnection f1 = topStack.getTop(j).getFrontConnection();
 
-        FrontConnection f2 = topStack.get(j-1-i).getFrontConnection();
+        FrontConnection f2 = topStack.getTop(j-1-i).getFrontConnection();
         Comparison c = FashionMap.compareFrontConnections(f1, f2);
         f1.setImpact(c.getUpperImpact());
         f2.setImpact(c.getLowerImpact());
@@ -188,6 +188,10 @@ public class Outfit implements Comparable<Outfit>{
 
     formalityTracker.addFormality(bottom.getMaterial.getFormality());
     //etc
+  }
+
+  public double getScore(){
+    return score;
   }
   // trackers need gets
 }
