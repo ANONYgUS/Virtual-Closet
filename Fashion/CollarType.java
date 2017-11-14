@@ -4,7 +4,7 @@ public enum CollarType{
 
 // all types of collars
   T_CREWNECK(new Formality(0,7,0.25)),
-  POLO(new Formality(4,7,.35)),
+  POLO(new Formality(4,7,.35));
 
 
   private Formality formality;
@@ -12,7 +12,7 @@ public enum CollarType{
   /**
   * constructor for collar enum types
   */
-  Collar(Formality f){
+  CollarType(Formality f){
     formality = f;
   }
 
@@ -24,3 +24,4 @@ public enum CollarType{
   public Formality getFormality(){
     return formality;
   }
+}

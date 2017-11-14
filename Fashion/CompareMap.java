@@ -1,15 +1,16 @@
 // stores every raw comparison value in a HashMap
+import java.util.*;
 
 public class CompareMap{
 
-  private HashMap<String, double> map;
+  private HashMap<String, Double> map;
 
   /**
   * constructor for CompareMap
   * adds all predetermined comparisons
   */
   public CompareMap(){
-    map = new HashMap<String, Comparison>();
+    map = new HashMap<String, Double>(); //used to be String, Comparison
 
 
   }
@@ -23,4 +24,21 @@ public class CompareMap{
 
     return map.get(s1+s2);
   }
+
+  public static Comparison compareCollars(Collar a, Collar b){
+    return new Comparison(); //temp value
+  }
+
+  public static Comparison compareSleeves(Sleeve a, Sleeve b){
+    return new Comparison(); //temp value
+  }
+
+  public static Comparison compareTopWaists(TopWaist a, TopWaist b){
+    return new Comparison(); //temp value
+  }
+
+  public static Comparison compareDesigns(Design a, Design b){
+    return new Comparison(); //temp value
+  }
+
 }

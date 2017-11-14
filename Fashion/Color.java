@@ -1,6 +1,6 @@
 //stores the color of something
 
-public class Color implements FormalDriven{
+public class Color{
 
 
   private String name;
@@ -27,6 +27,14 @@ public class Color implements FormalDriven{
   */
   public Formality getFormality(){
     return formality;
+  }
+
+  public Hue getHue(){
+      return hue;
+  }
+
+  public int getBrightness(){
+    return brightness;
   }
 
   /**

@@ -18,7 +18,5 @@ public interface ColorDriven
      * @param c other color driven factor
      * @return color comparison
      */
-    Comparison compareColor(ColorDriven c){
-
-    }
+    Comparison compareColor(ColorDriven c);
 }

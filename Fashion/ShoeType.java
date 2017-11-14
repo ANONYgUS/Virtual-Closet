@@ -1,6 +1,6 @@
 // stores all the types of shoes
 
-public enum ShoeType implements FormalDriven{
+public enum ShoeType{
 
   ; //semicolon before private instance variables
   private String name;

@@ -1,6 +1,6 @@
 //stores the design of something
 
-public class Design implements FormalDriven{
+public class Design{
 
   private String name;
   private Formality formality;

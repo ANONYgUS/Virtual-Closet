@@ -1,4 +1,6 @@
-public class Top implements FormalDriven, DesignDriven, CollarDriven, SleeveDriven, ColorDriven {
+import java.util.*;
+
+public class Top extends Piece{
 
 	private Material material;
 	private int layer;
@@ -107,7 +109,7 @@ public class Top implements FormalDriven, DesignDriven, CollarDriven, SleeveDriv
 	* @return sleevelength
 	*/
 	public SleeveLength getSleeveLength(){
-		return SleeveLength;
+		return sleevelength;
 	}
 
 	/**
@@ -142,8 +144,15 @@ public class Top implements FormalDriven, DesignDriven, CollarDriven, SleeveDriv
 		return frontConnection;
 	}
 
+<<<<<<< HEAD
 	public void setFrontConnectionMode(FrontConnectionMode mode){
 		frontConnection.setFrontConnectionMode(FrontConnectionMode mode);
+=======
+	public void setFrontConnectionMode(Object mode){
+		mode = (FrontConnectionMode)(mode);
+		//frontConnection.setFrontConnectionMode(FrontConnectionMode mode);
+		// recursive method call, what's happening here?
+>>>>>>> 56ce478973fdfa035a259539fa9b6bda5daa3d29
 	}
 
 	public void calculateTemperature(){
@@ -183,6 +192,6 @@ public class Top implements FormalDriven, DesignDriven, CollarDriven, SleeveDriv
 	}
 
 	public Top clone(){
-		return new Top(); // I need to write this in
+		return this; // I need to write this in
 	}
 }

@@ -1,7 +1,9 @@
 // scores how well all formalities go together throughout an outfit by tracking the formalities
 // also calculates the exact formality of a whole outfit from 0-1
 
-public class FormailityTracker{
+import java.util.*;
+
+public class FormalityTracker{
 
   private ArrayList<Formality> formalities;
 
@@ -17,7 +19,7 @@ public class FormailityTracker{
   * @param f formality to add
   */
   public void addFormality(Formality f){
-    formalities.add(c);
+    formalities.add(f);
   }
 
   /**
@@ -63,7 +65,7 @@ public class FormailityTracker{
   public void sort(){
 
     Formality temp;
-    for(int i=1, i<formalities.size(); i++){
+    for(int i=1; i<formalities.size(); i++){
       for(int j=i; j>0; j--){
         if(formalities.get(j).getImpact() > formalities.get(j-1).getImpact()){
           temp = formalities.get(j);
@@ -84,7 +86,7 @@ public class FormailityTracker{
 
     for(Formality f: formalities){
       tImpact += f.getImpact();
-      sum += f.getImpact() * (f.getMax() + f.getMin()) / 2
+      sum += f.getImpact() * (f.getMax() + f.getMin()) / 2;
     }
 
     return sum / tImpact;

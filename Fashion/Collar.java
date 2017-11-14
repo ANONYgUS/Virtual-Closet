@@ -1,13 +1,15 @@
 //stores the collar a top has
 
-public Collar implements ColorDriven, FormalDriven{
+import java.util.*;
+
+public class Collar {
 
   private CollarType collarType;
   private String name;
   private Color color;
   private Formality formality;
 
-  puplic Collar(CollarType cT){
+  public Collar(CollarType cT){
     collarType = cT;
     name = cT.toString();
     formality = cT.getFormality();

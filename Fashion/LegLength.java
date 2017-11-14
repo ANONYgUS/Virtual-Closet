@@ -1,6 +1,6 @@
-*stores the length of the leg of a bottom
+//stores the length of the leg of a bottom
 
-public class LegLength extends WaistFactor implements FormalDriven, WaistDriven{
+public class LegLength extends WaistFactor{
 
   private Formality formality;
   private LegLengthType legLengthType;
@@ -25,8 +25,8 @@ public class LegLength extends WaistFactor implements FormalDriven, WaistDriven{
   * returns the type of leg length
   * @return leg length type
   */
-  public SleeveType getLegLengthType(){
-    return sleeveType;
+  public LegLengthType getLegLengthType(){
+    return legLengthType;
   }
 
 

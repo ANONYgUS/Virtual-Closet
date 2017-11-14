@@ -3,11 +3,10 @@
  * Base class for wardrobe items
  *
  */
-public class Piece implements FormalDriven, ColorDriven //,TempDriven
-{
+public class Piece {
 
-    private Formality formality;
-    private Temperature temperature;
+    public Formality formality;
+    public Temperature temperature;
 
 
     /**
@@ -31,7 +30,7 @@ public class Piece implements FormalDriven, ColorDriven //,TempDriven
      * returns the temperature of the piece
      * @return temperature
      */
-    public int getTemperature()
+    public Temperature getTemperature()
     {
         return temperature;
     }

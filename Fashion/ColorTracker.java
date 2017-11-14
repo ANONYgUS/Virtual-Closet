@@ -47,7 +47,7 @@ public class ColorTracker{
     double sumX = 0;
     double sumY = 0;
     double tImpact = 0;
- 
+
     for(Color c: colors){
       double impact = c.getImpact();
       double sImpact = c.getSaturationImpact();
@@ -86,7 +86,7 @@ public class ColorTracker{
       sum += added * c.getBrightness();
     }
     double mean = sum / tImpact;
-    double sum2;
+    double sum2 = 0;
 
     for(Color c: colors){
       double imp = c.getImpact() * c.getSaturationImpact() * FashionMap.BRIGHTNESS_COLOR_MULTIPLIER;

@@ -1,7 +1,7 @@
 // stores the tightness of a bottom
 // for example skinny jeans, vs loose jeans
 
-public class BottomTightness implements FormalDriven{
+public class BottomTightness{
 
   private String name;
   private Formality formality;

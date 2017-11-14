@@ -1,6 +1,6 @@
-*stores the type of waist the top has
+//stores the type of waist the top has
 
-public class TopWaist extends WaistFactor implements FormalDriven{
+public class TopWaist extends WaistFactor{
 
   private WaistType waistType;
   private Formality formality;

@@ -1,4 +1,4 @@
-
+import java.util.*;
 /**
  * Stores all pieces and generates outfits
  *
@@ -85,6 +85,7 @@ public class Closet
           }
         }
       }
+      return returned;
     }
 
     public ArrayList<TopStack> getTopStacks(){
@@ -95,24 +96,26 @@ public class Closet
       for(Top top: tops){
         if (top.getLooseness() <= FashionMap.MAX_LOOSENESS_DIFF){
             Top clone = top.clone();
-          for(FrontConnectionMode mode: top.getFrontConnection().getModes()){
-            clone.setFrontConnectionMode(mode)
+          for(Object mode: top.getFrontConnection().getModes()){
+            mode = (FrontConnectionMode)(mode);
+            clone.setFrontConnectionMode(mode);
             TopStack stack = new TopStack();
             stack.add(clone);
-            returned.add(clone);
+            returned.add(stack);
           }
         }
       }
 
 // then, for each top that could be worn alone, all combinations of tops that could be thrown on top are added
-      for(int i = 0; i<returned.size; i++){
+      for(int i = 0; i<returned.size(); i++){
         TopStack stack = returned.get(i);
         for(Top t: tops){
           if(t.getLooseness() >= stack.getThickness() // makes sure a top would fit on top of the stack
           && t.getLooseness() - stack.getThickness() >= FashionMap.MAX_LOOSENESS_DIFF) // makes sure it's not too loose
           {
-            tClone = t.clone();
-            for(FrontConnectionMode mode: top.getFrontConnection().getModes()){
+            Top tClone = t.clone();
+            for(Object mode: t.getFrontConnection().getModes()){
+              mode = (FrontConnectionMode)(mode);
               tClone.setFrontConnectionMode(mode);
               TopStack sClone = stack.clone();
               sClone.add(tClone);
@@ -141,6 +144,7 @@ public class Closet
       for(int i=0; i<FashionMap.BEST_OUTFITS_SIZE; i++){
         returned.add(tree.pollLast());
       }
+      return returned;
     }
 
     public Shoe pickShoe(){
