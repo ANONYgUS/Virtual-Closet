@@ -30,9 +30,6 @@ public class Outfit implements Comparable<Outfit>{
   private Tracker frontConnectionTracker;
   private double frontConnectionScore;
 
-  private Tracker bottomShoeTracker;
-  private double bottomShoeScore;
-
   /**
   * constructor for Outfit
   */
@@ -50,7 +47,6 @@ public class Outfit implements Comparable<Outfit>{
     waistScore = FashionMap.DEFAULT_OUTFIT_SCORE;
     sleeveScore = FashionMap.DEFAULT_OUTFIT_SCORE;
     frontConnectionScore = FashionMap.DEFAULT_OUTFIT_SCORE;
-    bottomShoeScore = FashionMap.DEFAULT_OUTFIT_SCORE;
 
     formalityTracker = new FormalityTracker();
   }
@@ -78,7 +74,6 @@ public class Outfit implements Comparable<Outfit>{
     sleeveScore = sleeveTracker.getScore();
     designScore = designTracker.getScore();
     waistScore = waistTracker.getScore();
-    bottomShoeScore = bottomShoeTracker.getScore();
     colorScore = colorTracker.getScore();
 
     formalityScore = formalityTracker.getScore();
@@ -88,7 +83,6 @@ public class Outfit implements Comparable<Outfit>{
             sleeveScore * FashionMap.SLEEVE_SCORE_WEIGHT
             designScore * FashionMap.DESIGN_SCORE_WEIGHT
             waistScore * FashionMap.WAIST_SCORE_WEIGHT
-            bottomShoeScore * FashionMap.BOTTOM_SHOE_SCORE_WEIGHT
             colorScore * FashionMap.COLOR_SCORE_WEIGHT
             formalityScore * FashionMap.FORMALITY_SCORE_WEIGHT
             FashionMap.SCORE_CONSTANT;
@@ -167,13 +161,9 @@ public class Outfit implements Comparable<Outfit>{
     }
   }
 
-  public void compareBottomShoe(){
 
-  }
 
-  public void doTemperatures(){
-    
-  }
+
 
   public void doColors(){
 

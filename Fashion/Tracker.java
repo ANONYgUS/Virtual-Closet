@@ -1,5 +1,4 @@
-//scores how well a factor of clothing works throughout an outfit by tracking various comparisons of that factor
-import java.util.*;
+* scores how well a factor of clothing works throughout an outfit by tracking various comparisons of that factor
 
 public class Tracker{
 
@@ -9,8 +8,8 @@ public class Tracker{
   /**
   *constructor for Tracker
   */
-  public Tracker(){ //this was DesignTracker
-    comparisons = new ArrayList<Comparison>();
+  public Tracker(){
+    comparisons = new Arraylist<Comparison>();
     impact = 1;
   }
 
@@ -37,7 +36,7 @@ public class Tracker{
     for(Comparison c: comparisons){
       double impact = c.getImpact();
       sumImpact += impact;
-      sum += c.getRating() * impact; //this was getScore which doesn't exist
+      sum += c.getScore() * impact;
     }
 
       return sum / sumImpact;

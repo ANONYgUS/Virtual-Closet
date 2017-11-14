@@ -5,6 +5,7 @@ public class Temperature{
   private double impact;
   private int approx;
   private int range;
+  private int quantity;
 
   /**
   * constructor for temperature objects
@@ -33,7 +34,11 @@ public class Temperature{
   * returns the radius of the range of acceptable temperatures of the factor of clothing
   * @return radius of range of acceptable temperatures
   */
-  public int getRange(){
+  public int getApprox(){
     return range;
+  }
+
+  public double getScore(int t){
+
   }
 }
