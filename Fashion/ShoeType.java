@@ -5,7 +5,6 @@ public enum ShoeType{
   ; //semicolon before private instance variables
   private String name;
   private Formality formality;
-  private int height;
   private Temperature temperature;
 
   /**

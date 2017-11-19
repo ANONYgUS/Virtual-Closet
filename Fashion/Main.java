@@ -1,15 +1,15 @@
+
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+import javafx.event.*;
+import javafx.stage.*;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.*;
 
 import java.io.*;
 import java.util.*;
 
-public class newMain extends Application {
+public class Main extends Application {
     public static void main(String[] args) {
 
         //data process before gui launch
@@ -19,6 +19,10 @@ public class newMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+
+        StackPane root = new StackPane();
+        VBox layoutMain = new VBox(20);
+        Scene sceneMain = new Scene(layoutMain, 1000, 800);
 
         //headers for data files
         String TopsCSVHeader = "Temperature,Formality,Material,Layer,Thickness,Looseness,Collar,SleeveLength,Texture,Design,Lining,FrontConnection,Colors,ID";
@@ -51,6 +55,42 @@ public class newMain extends Application {
             //Great user
 
         }
+
+        //if no location file exists, it is the first application launch
+        File location = new File("Location.txt");
+        if(!location.exists()){
+            //Great user and ask for City for weather
+            Label greeting= new Label("Welcome to the Fashion App! For recommendations based on weather conditions, please enter the city in which you live.");
+            TextField cityField = new TextField("Boston");
+            Button submitCity = new Button();
+            submitCity.setText("Submit City");
+            submitCity.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                  //write data from text field to data file
+                  String city = cityField.getCharacters().toString();
+                  try{
+                  PrintWriter outputFile = new PrintWriter(location);
+                  outputFile.print(city);
+                  outputFile.close();
+                }
+                catch(IOException e){
+                    System.out.println("IOException while writing location to data file");
+                }
+                primaryStage.setScene(sceneMain);
+                }
+            });
+            VBox layout1 = new VBox(20);
+            layout1.getChildren().addAll(greeting, cityField, submitCity);
+            Scene scene1 = new Scene(layout1, 1000, 800);
+            primaryStage.setScene(scene1);
+            primaryStage.show();
+        }
+        else{
+            primaryStage.setScene(sceneMain);
+            primaryStage.show();
+        }
+
 
         //create closet
         //Closet closet = new Closet();
@@ -154,17 +194,12 @@ public class newMain extends Application {
 
           }
         });
-        addShoe.setTranslateY(50);
-        addBottom.setTranslateY(50);
-        addBottom.setTranslateX(120);
-        addTop.setTranslateY(50);
-        addTop.setTranslateX(-120);
-        StackPane root = new StackPane();
-        root.getChildren().add(getOutfits);
-        root.getChildren().add(addShoe);
-        root.getChildren().add(addBottom);
-        root.getChildren().add(addTop);
-        primaryStage.setScene(new Scene(root, 1000, 800));
-        primaryStage.show();
+        //addShoe.setTranslateY(50);
+        //addBottom.setTranslateY(50);
+        //addBottom.setTranslateX(120);
+        //addTop.setTranslateY(50);
+        //addTop.setTranslateX(-120);
+        layoutMain.getChildren().addAll(getOutfits, addShoe, addBottom, addTop);
+
     }
 }
