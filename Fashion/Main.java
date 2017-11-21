@@ -1,10 +1,16 @@
-
 import javafx.application.Application;
 import javafx.event.*;
 import javafx.stage.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import javafx.util.StringConverter;
+import javafx.geometry.Insets;
+import java.net.URL;
+
 
 import java.io.*;
 import java.util.*;
@@ -133,14 +139,60 @@ public class Main extends Application {
         getOutfits.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-              // get temp from some API
-              int temp = 60;
+              // get City from file
+
+              int tempFahrenheit = 60;
+              File location = new File("Location.txt");
+
+              //if file exists, proceed
+              if(location.exists()){
+                 try{
+                     Scanner s = new Scanner(location);
+                     String city = s.nextLine().toLowerCase();
+                     s.close();
+                     String weather = "weather";
+                     String forecast = "forecast";
+                     String infoType = weather;
+
+                     //get temp from api
+                     String url = "http://api.openweathermap.org/data/2.5/" + infoType + "?q=" + city + "&APPID=1421208f8ef53599f787a2a8c5f83580";
+                     URL obj = new URL(url);
+                     HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                     con.setRequestMethod("GET");
+                     con.setRequestProperty("User-Agent", "Chrome");
+                     int responseCode = con.getResponseCode();
+                     BufferedReader in = new BufferedReader(
+                     new InputStreamReader(con.getInputStream()));
+                     String inputLine;
+                     StringBuffer response = new StringBuffer();
+                     while ((inputLine = in.readLine()) != null) {
+                        response.append(inputLine);
+                     }
+                     in.close();
+                     String r = response.toString();
+
+                     //parse for data and convert to fahrenheit
+                     double tempKelvin = Double.parseDouble(r.substring(r.indexOf("temp\":")+6, r.indexOf("temp\":")+12));
+                     System.out.println("tempKelvin"+tempKelvin);
+                     double tempF = (9.0/5.0)*(tempKelvin) - 459.67;
+                     tempFahrenheit = (int)(tempF);
+                     System.out.println(tempFahrenheit);
+                }
+                catch(IOException e){};
+                }
+              //otherwise ask for city or temp from user here
+              else{
+
+
+              }
+
+
 
               // get formality from a field in the gui
               //Formality f = new Formality(0,0,0);
 
               // receive list of outfits
-              //ArrayList<Outfit> suggested = closet.getOutfits(temp, f);
+              //ArrayList<Outfit> suggested = closet.getOutfits(tempFahrenheit, f);
 
               //present outfits to user
             }
@@ -194,12 +246,57 @@ public class Main extends Application {
 
           }
         });
+
+
+        //formality slider
+        Slider slider = new Slider(0, 4, 0);
+        slider.setMin(0);
+        slider.setMax(4);
+        slider.setValue(1);
+        slider.setMinorTickCount(0);
+        slider.setMajorTickUnit(1);
+        slider.setSnapToTicks(true);
+        slider.setShowTickMarks(true);
+        slider.setShowTickLabels(true);
+        slider.setLabelFormatter(new StringConverter<Double>() {
+            @Override
+            public String toString(Double n) {
+                if (n < 0.5) return "Casual";
+                if (n < 1.5) return "Business Casual";
+                if (n < 2.5) return "Business Formal";
+                if (n < 3.5) return "Semi-Formal";
+                return "Formal";
+            }
+
+            @Override
+            public Double fromString(String s) {
+                switch (s) {
+                    case "Casual":
+                        return 0d;
+                    case "Business Casual":
+                        return 1d;
+                    case "Business Formal":
+                        return 2d;
+                    case "Semi-Formal":
+                        return 3d;
+                    case "Formal":
+                        return 4d;
+
+
+                    default:
+                        return 1d;
+                }
+            }
+        });
+
+        slider.setMinWidth(280);
+
         //addShoe.setTranslateY(50);
         //addBottom.setTranslateY(50);
         //addBottom.setTranslateX(120);
         //addTop.setTranslateY(50);
         //addTop.setTranslateX(-120);
-        layoutMain.getChildren().addAll(getOutfits, addShoe, addBottom, addTop);
-
+        layoutMain.getChildren().addAll(slider, getOutfits, addShoe, addBottom, addTop);
+        layoutMain.setPadding(new Insets(30));
     }
 }
