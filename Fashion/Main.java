@@ -8,7 +8,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import javafx.util.StringConverter;
-import javafx.geometry.Insets;
+import javafx.geometry.*;
 import java.net.URL;
 
 
@@ -87,6 +87,7 @@ public class Main extends Application {
                 }
             });
             VBox layout1 = new VBox(20);
+            layout1.setPadding(new Insets(30));
             layout1.getChildren().addAll(greeting, cityField, submitCity);
             Scene scene1 = new Scene(layout1, 1000, 800);
             primaryStage.setScene(scene1);
@@ -129,7 +130,45 @@ public class Main extends Application {
         }
         fileScanner.close();
 
+        Slider slider = new Slider(0, 4, 0);
+        slider.setMin(0);
+        slider.setMax(4);
+        slider.setValue(1);
+        slider.setMinorTickCount(0);
+        slider.setMajorTickUnit(1);
+        slider.setSnapToTicks(false);
+        slider.setShowTickMarks(true);
+        slider.setShowTickLabels(true);
+        slider.setLabelFormatter(new StringConverter<Double>() {
+            @Override
+            public String toString(Double n) {
+                if (n < 0.5) return "Casual";
+                if (n < 1.5) return "Business Casual";
+                if (n < 2.5) return "Business Formal";
+                if (n < 3.5) return "Semi-Formal";
+                return "Formal";
+            }
 
+            @Override
+            public Double fromString(String s) {
+                switch (s) {
+                    case "Casual":
+                        return 0d;
+                    case "Business Casual":
+                        return 1d;
+                    case "Business Formal":
+                        return 2d;
+                    case "Semi-Formal":
+                        return 3d;
+                    case "Formal":
+                        return 4d;
+
+
+                    default:
+                        return 1d;
+                }
+            }
+        });
 
         primaryStage.setTitle("Virtual Closet");
 
@@ -161,8 +200,7 @@ public class Main extends Application {
                      con.setRequestMethod("GET");
                      con.setRequestProperty("User-Agent", "Chrome");
                      int responseCode = con.getResponseCode();
-                     BufferedReader in = new BufferedReader(
-                     new InputStreamReader(con.getInputStream()));
+                     BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
                      String inputLine;
                      StringBuffer response = new StringBuffer();
                      while ((inputLine = in.readLine()) != null) {
@@ -172,7 +210,11 @@ public class Main extends Application {
                      String r = response.toString();
 
                      //parse for data and convert to fahrenheit
-                     double tempKelvin = Double.parseDouble(r.substring(r.indexOf("temp\":")+6, r.indexOf("temp\":")+12));
+                     r = r.substring(r.indexOf("temp\":")+6, r.indexOf("temp\":")+12);
+                     if(r.contains(",")){
+                        r = r.substring(0, r.length()-1);
+                     }
+                     double tempKelvin = Double.parseDouble(r);
                      System.out.println("tempKelvin"+tempKelvin);
                      double tempF = (9.0/5.0)*(tempKelvin) - 459.67;
                      tempFahrenheit = (int)(tempF);
@@ -187,10 +229,13 @@ public class Main extends Application {
               }
 
 
+              double s = slider.getValue();
 
-              // get formality from a field in the gui
-              //Formality f = new Formality(0,0,0);
-
+              //convert to 1-10 scale
+              s = 10*s/4;
+              //get formality from a field in the gui
+              Formality f = new Formality(s,s,1); //what should the impact be here?
+              System.out.println(s);
               // receive list of outfits
               //ArrayList<Outfit> suggested = closet.getOutfits(tempFahrenheit, f);
 
@@ -249,45 +294,7 @@ public class Main extends Application {
 
 
         //formality slider
-        Slider slider = new Slider(0, 4, 0);
-        slider.setMin(0);
-        slider.setMax(4);
-        slider.setValue(1);
-        slider.setMinorTickCount(0);
-        slider.setMajorTickUnit(1);
-        slider.setSnapToTicks(true);
-        slider.setShowTickMarks(true);
-        slider.setShowTickLabels(true);
-        slider.setLabelFormatter(new StringConverter<Double>() {
-            @Override
-            public String toString(Double n) {
-                if (n < 0.5) return "Casual";
-                if (n < 1.5) return "Business Casual";
-                if (n < 2.5) return "Business Formal";
-                if (n < 3.5) return "Semi-Formal";
-                return "Formal";
-            }
 
-            @Override
-            public Double fromString(String s) {
-                switch (s) {
-                    case "Casual":
-                        return 0d;
-                    case "Business Casual":
-                        return 1d;
-                    case "Business Formal":
-                        return 2d;
-                    case "Semi-Formal":
-                        return 3d;
-                    case "Formal":
-                        return 4d;
-
-
-                    default:
-                        return 1d;
-                }
-            }
-        });
 
         slider.setMinWidth(280);
 
@@ -297,6 +304,7 @@ public class Main extends Application {
         //addTop.setTranslateY(50);
         //addTop.setTranslateX(-120);
         layoutMain.getChildren().addAll(slider, getOutfits, addShoe, addBottom, addTop);
+        layoutMain.setAlignment(Pos.CENTER);
         layoutMain.setPadding(new Insets(30));
     }
 }
