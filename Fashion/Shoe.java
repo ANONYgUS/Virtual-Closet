@@ -6,7 +6,7 @@ public class Shoe extends Piece
 {
     private ShoeType shoeType;
     private ArrayList<Color> colors;
-    private Color soleColor;
+    //private Color soleColor;
 
     /**
      * Constructor for objects of class Shoe

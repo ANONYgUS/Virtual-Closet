@@ -13,6 +13,8 @@ import java.net.URL;
 
 
 import java.io.*;
+import java.nio.*;
+import java.nio.file.*;
 import java.util.*;
 
 public class Main extends Application {
@@ -31,9 +33,9 @@ public class Main extends Application {
         Scene sceneMain = new Scene(layoutMain, 1000, 800);
 
         //headers for data files
-        String TopsCSVHeader = "Temperature,Formality,Material,Layer,Thickness,Looseness,Collar,SleeveLength,Texture,Design,Lining,FrontConnection,Colors,ID";
-        String BottomsCSVHeader = "Temperature,Formality,Material,Design,Tightness,Length,Texture,Lining,Colors,ID";
-        String ShoesCSVHeader = "Temperature,Formality,ShoeType,Colors,SoleColor,Formality,Height,ID";
+        String TopsCSVHeader = "Temperature,Formality,Material,Layer,Thickness,Looseness,Collar,SleeveLength,Texture,Design,Lining,FrontConnection,Colors,Name\n";
+        String BottomsCSVHeader = "Temperature,Formality,Material,Design,Tightness,Length,Texture,Lining,Colors,Name\n";
+        String ShoesCSVHeader = "Temperature,Formality,Colors,Name\n";
 
         File tops = new File("Tops.csv");
         File bottoms = new File("Bottoms.csv");
@@ -249,12 +251,44 @@ public class Main extends Application {
         addShoe.setOnAction(new EventHandler<ActionEvent>(){
           @Override
           public void handle(ActionEvent event) {
-            Stage addShoeStage = new Stage();
-            //fields for shoe details
 
-            addShoeStage.show();
-            //Color soleColor = new Color(ColorName.);
-            //get Shoe details from fields
+            VBox layoutShoe = new VBox(20);
+            layoutShoe.setPadding(new Insets(30));
+
+            //fields for shoe details
+            Label nameQuestion = new Label("Give this shoe a name, so you'll recognize it when it is suggested later in an outfit:");
+            TextField nameField = new TextField("Beige Sperry");
+
+            Label colorsQuestion = new Label("Enter a comma separated list of colors (in order of prominance) this shoe has");
+            TextField colorsField = new TextField("beige, orange, white");
+
+            Label formalityQuestion = new Label("On a scale of 1-10, how formal would you rate this pair of shoes?");
+            TextField formalityField = new TextField("2");
+
+            Button submitShoe = new Button();
+            submitShoe.setText("Done");
+            submitShoe.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                  //write data from text fields to shoe data file
+                  String shoeEntry = "n/a,";
+                  shoeEntry += formalityField.getCharacters().toString()+",";
+                  shoeEntry += colorsField.getCharacters().toString().replace(",","-")+",";
+                  shoeEntry += nameField.getCharacters().toString()+"\n";
+                  try{
+                      Files.write(Paths.get("Shoes.csv"), shoeEntry.getBytes(), StandardOpenOption.APPEND);
+                  }
+                  catch(IOException e){
+                      System.out.println("IOException while writing shoe details to Shoes.csv");
+                  }
+                  //return to main scene (main menu)
+                  primaryStage.setScene(sceneMain);
+                }
+            });
+
+            layoutShoe.getChildren().addAll(nameQuestion, nameField, colorsQuestion, colorsField, formalityQuestion, formalityField, submitShoe);
+            Scene addShoeScene = new Scene(layoutShoe, 1000, 800);
+            primaryStage.setScene(addShoeScene);
 
 
           }
@@ -267,6 +301,7 @@ public class Main extends Application {
           public void handle(ActionEvent event) {
             Stage addBottomStage = new Stage();
             //fields for shoe details
+
 
             addBottomStage.show();
             //Color soleColor = new Color(ColorName.);
