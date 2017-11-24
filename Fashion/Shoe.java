@@ -13,7 +13,7 @@ public class Shoe extends Piece
      */
     public Shoe()
     {
-
+       colors = new ArrayList<Color>();
     }
 
     /**

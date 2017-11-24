@@ -10,14 +10,18 @@ import java.net.HttpURLConnection;
 import javafx.util.StringConverter;
 import javafx.geometry.*;
 import java.net.URL;
-
-
+import javafx.scene.control.ColorPicker;
+import javafx.geometry.Insets;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.*;
+import javafx.stage.Stage;
 import java.io.*;
 import java.nio.*;
 import java.nio.file.*;
 import java.util.*;
 
-public class Main extends Application {
+public class MainAAA extends Application {
     public static void main(String[] args) {
 
         //data process before gui launch
@@ -31,6 +35,7 @@ public class Main extends Application {
         StackPane root = new StackPane();
         VBox layoutMain = new VBox(20);
         Scene sceneMain = new Scene(layoutMain, 1000, 800);
+        primaryStage.setTitle("Virtual Closet");
 
         //headers for data files
         String TopsCSVHeader = "Temperature,Formality,Material,Layer,Thickness,Looseness,Collar,SleeveLength,Texture,Design,Lining,FrontConnection,Colors,Name\n";
@@ -172,7 +177,7 @@ public class Main extends Application {
             }
         });
 
-        primaryStage.setTitle("Virtual Closet");
+
 
         //getOutfits Button
         Button getOutfits = new Button();
@@ -255,15 +260,24 @@ public class Main extends Application {
             VBox layoutShoe = new VBox(20);
             layoutShoe.setPadding(new Insets(30));
 
+
+
+
             //fields for shoe details
             Label nameQuestion = new Label("Give this shoe a name, so you'll recognize it when it is suggested later in an outfit:");
             TextField nameField = new TextField("Beige Sperry");
 
-            Label colorsQuestion = new Label("Enter a comma separated list of colors (in order of prominance) this shoe has");
-            TextField colorsField = new TextField("beige, orange, white");
 
             Label formalityQuestion = new Label("On a scale of 1-10, how formal would you rate this pair of shoes?");
             TextField formalityField = new TextField("2");
+
+            Label colorsQuestion = new Label("How many colors does this shoe have?");
+            TextField colorsField = new TextField("1");
+
+            VBox layoutShoeColor = new VBox(20);
+            layoutShoeColor.setPadding(new Insets(30));
+
+            ArrayList<ColorPicker> colors = new ArrayList<ColorPicker>();
 
             Button submitShoe = new Button();
             submitShoe.setText("Done");
@@ -273,8 +287,10 @@ public class Main extends Application {
                   //write data from text fields to shoe data file
                   String shoeEntry = "n/a,";
                   shoeEntry += formalityField.getCharacters().toString()+",";
-                  shoeEntry += colorsField.getCharacters().toString().replace(",","-")+",";
-                  shoeEntry += nameField.getCharacters().toString()+"\n";
+                  for(ColorPicker c : colors){
+                      shoeEntry+= "{"+c.getValue().getHue()+";"+c.getValue().getSaturation()+";"+c.getValue().getBrightness()+"}";
+                  }
+                  shoeEntry += ","+nameField.getCharacters().toString()+"\n";
                   try{
                       Files.write(Paths.get("Shoes.csv"), shoeEntry.getBytes(), StandardOpenOption.APPEND);
                   }
@@ -286,42 +302,245 @@ public class Main extends Application {
                 }
             });
 
-            layoutShoe.getChildren().addAll(nameQuestion, nameField, colorsQuestion, colorsField, formalityQuestion, formalityField, submitShoe);
+
+
+
+
+            Button cancel = new Button();
+            cancel.setText("Cancel");
+            cancel.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    primaryStage.setScene(sceneMain);
+                }
+            });
+
+            Button selectColors = new Button();
+            selectColors.setText("Select Colors");
+            selectColors.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    for(int i = 0; i<Integer.parseInt(colorsField.getCharacters().toString()); i++){
+                        ColorPicker colorPicker = new ColorPicker();
+                        colorPicker.setValue(Color.CORAL);
+                        colors.add(colorPicker);
+                        layoutShoeColor.getChildren().addAll(colorPicker);
+
+                    }
+
+                    layoutShoeColor.getChildren().addAll(cancel, submitShoe);
+                    Scene addShoeColorScene = new Scene(layoutShoeColor, 1000, 800);
+                    primaryStage.setScene(addShoeColorScene);
+                }
+            });
+
+
+
+
+            layoutShoe.getChildren().addAll(nameQuestion, nameField, formalityQuestion, formalityField, colorsQuestion, colorsField, selectColors, cancel);
             Scene addShoeScene = new Scene(layoutShoe, 1000, 800);
             primaryStage.setScene(addShoeScene);
 
 
           }
         });
+
+
+
+
+
+
         //addBottom Button
         Button addBottom = new Button();
         addBottom.setText("Add Bottom");
         addBottom.setOnAction(new EventHandler<ActionEvent>(){
           @Override
           public void handle(ActionEvent event) {
-            Stage addBottomStage = new Stage();
+
+            VBox layoutBottom = new VBox(20);
+            layoutBottom.setPadding(new Insets(30));
+
+
+
+
             //fields for shoe details
+            Label nameQuestion = new Label("Give this bottom a name, so you'll recognize it when it is suggested later in an outfit:");
+            TextField nameField = new TextField("Blue Cargo Shorts");
 
 
-            addBottomStage.show();
-            //Color soleColor = new Color(ColorName.);
-            //get Shoe details from fields
+            Label formalityQuestion = new Label("On a scale of 1-10, how formal would you rate this bottom?");
+            TextField formalityField = new TextField("2");
+
+            Label colorsQuestion = new Label("How many colors does this bottom have?");
+            TextField colorsField = new TextField("1");
+
+            VBox layoutBottomColor = new VBox(20);
+            layoutBottomColor.setPadding(new Insets(30));
+
+            ArrayList<ColorPicker> colors = new ArrayList<ColorPicker>();
+
+            Button submitBottom = new Button();
+            submitBottom.setText("Done");
+            submitBottom.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                  //write data from text fields to shoe data file
+                  String bottomEntry = "n/a,";
+                  bottomEntry += formalityField.getCharacters().toString()+",";
+                  for(ColorPicker c : colors){
+                      bottomEntry+= "{"+c.getValue().getHue()+";"+c.getValue().getSaturation()+";"+c.getValue().getBrightness()+"}";
+                  }
+                  bottomEntry += ","+nameField.getCharacters().toString()+"\n";
+                  try{
+                      Files.write(Paths.get("Bottoms.csv"), bottomEntry.getBytes(), StandardOpenOption.APPEND);
+                  }
+                  catch(IOException e){
+                      System.out.println("IOException while writing bottom details to Bottoms.csv");
+                  }
+                  //return to main scene (main menu)
+                  primaryStage.setScene(sceneMain);
+                }
+            });
+
+
+
+
+
+            Button cancel = new Button();
+            cancel.setText("Cancel");
+            cancel.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    primaryStage.setScene(sceneMain);
+                }
+            });
+
+            Button selectColors = new Button();
+            selectColors.setText("Select Colors");
+            selectColors.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    for(int i = 0; i<Integer.parseInt(colorsField.getCharacters().toString()); i++){
+                        ColorPicker colorPicker = new ColorPicker();
+                        colorPicker.setValue(Color.CORAL);
+                        colors.add(colorPicker);
+                        layoutBottomColor.getChildren().addAll(colorPicker);
+
+                    }
+
+                    layoutBottomColor.getChildren().addAll(cancel, submitBottom);
+                    Scene addBottomColorScene = new Scene(layoutBottomColor, 1000, 800);
+                    primaryStage.setScene(addBottomColorScene);
+                }
+            });
+
+
+
+
+            layoutBottom.getChildren().addAll(nameQuestion, nameField, formalityQuestion, formalityField, colorsQuestion, colorsField, selectColors, cancel);
+            Scene addBottomScene = new Scene(layoutBottom, 1000, 800);
+            primaryStage.setScene(addBottomScene);
 
 
           }
         });
+
+
+
+
+
+
+
         //addTop Button
         Button addTop = new Button();
         addTop.setText("Add Top");
         addTop.setOnAction(new EventHandler<ActionEvent>(){
           @Override
           public void handle(ActionEvent event) {
-            Stage addTopStage = new Stage();
-            //fields for shoe details
 
-            addTopStage.show();
-            //Color soleColor = new Color(ColorName.);
-            //get Shoe details from fields
+            VBox layoutTop = new VBox(20);
+            layoutTop.setPadding(new Insets(30));
+
+
+
+
+            //fields for shoe details
+            Label nameQuestion = new Label("Give this top a name, so you'll recognize it when it is suggested later in an outfit:");
+            TextField nameField = new TextField("Orange Polo Shirt");
+
+
+            Label formalityQuestion = new Label("On a scale of 1-10, how formal would you rate this top?");
+            TextField formalityField = new TextField("4");
+
+            Label colorsQuestion = new Label("How many colors does this top have?");
+            TextField colorsField = new TextField("1");
+
+            VBox layoutTopColor = new VBox(20);
+            layoutTopColor.setPadding(new Insets(30));
+
+            ArrayList<ColorPicker> colors = new ArrayList<ColorPicker>();
+
+            Button submitTop = new Button();
+            submitTop.setText("Done");
+            submitTop.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                  //write data from text fields to shoe data file
+                  String topEntry = "n/a,";
+                  topEntry += formalityField.getCharacters().toString()+",";
+                  for(ColorPicker c : colors){
+                      topEntry+= "{"+c.getValue().getHue()+";"+c.getValue().getSaturation()+";"+c.getValue().getBrightness()+"}";
+                  }
+                  topEntry += ","+nameField.getCharacters().toString()+"\n";
+                  try{
+                      Files.write(Paths.get("Tops.csv"), topEntry.getBytes(), StandardOpenOption.APPEND);
+                  }
+                  catch(IOException e){
+                      System.out.println("IOException while writing top details to Tops.csv");
+                  }
+                  //return to main scene (main menu)
+                  primaryStage.setScene(sceneMain);
+                }
+            });
+
+
+
+
+
+            Button cancel = new Button();
+            cancel.setText("Cancel");
+            cancel.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    primaryStage.setScene(sceneMain);
+                }
+            });
+
+            Button selectColors = new Button();
+            selectColors.setText("Select Colors");
+            selectColors.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    for(int i = 0; i<Integer.parseInt(colorsField.getCharacters().toString()); i++){
+                        ColorPicker colorPicker = new ColorPicker();
+                        colorPicker.setValue(Color.CORAL);
+                        colors.add(colorPicker);
+                        layoutTopColor.getChildren().addAll(colorPicker);
+
+                    }
+
+                    layoutTopColor.getChildren().addAll(cancel, submitTop);
+                    Scene addTopColorScene = new Scene(layoutTopColor, 1000, 800);
+                    primaryStage.setScene(addTopColorScene);
+                }
+            });
+
+
+
+
+            layoutTop.getChildren().addAll(nameQuestion, nameField, formalityQuestion, formalityField, colorsQuestion, colorsField, selectColors, cancel);
+            Scene addTopScene = new Scene(layoutTop, 1000, 800);
+            primaryStage.setScene(addTopScene);
 
 
           }
