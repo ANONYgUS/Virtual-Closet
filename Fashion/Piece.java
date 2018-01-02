@@ -7,6 +7,7 @@ public class Piece {
 
     public Formality formality;
     public Temperature temperature;
+    public String nickName;
 
 
     /**

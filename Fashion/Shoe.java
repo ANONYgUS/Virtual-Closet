@@ -6,16 +6,14 @@ public class Shoe extends Piece
 {
     private ShoeType shoeType;
     private ArrayList<Color> colors;
-    private Color soleColor;
-    private Formality formality;
-    private int height;
+    //private Color soleColor;
 
     /**
      * Constructor for objects of class Shoe
      */
     public Shoe()
     {
-
+       colors = new ArrayList<Color>();
     }
 
     /**
