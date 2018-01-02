@@ -8,6 +8,7 @@ public class Sleeve{
   private Formality formality;
   private SleeveType sleeveType;
   private Temperature temperature;
+  private double impact;
   /**
   * constructor for sleeve objects
   */
@@ -19,12 +20,15 @@ public class Sleeve{
   * returns the colors of the sleeve, which is always just going to be 1 color
   * @return color
   */
-  public ArrayList<Color> getColors(){
-    ArrayList<Color> a = new ArrayList<Color>();
-    a.add(color);
-    return a;
+  public Color getColor(){
+    return color;
   }
 
+  public void setImpact(double d){
+    impact *= d;
+    color.multiplyImpact(d);
+    formality.multiplyImpact(d);
+  }
   /**
   * returns the formality of the sleeve
   * @return formality

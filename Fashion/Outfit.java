@@ -30,6 +30,8 @@ public class Outfit implements Comparable<Outfit>{
   private Tracker frontConnectionTracker;
   private double frontConnectionScore;
 
+  private double temperatureScore;
+  private Temperature temperature;
   /**
   * constructor for Outfit
   */
@@ -68,6 +70,7 @@ public class Outfit implements Comparable<Outfit>{
     compareBottomShoe();
     doColors();
     doFormalities();
+    setTemperature();
 
     frontConnectionScore = frontConnectionTracker.getScore();
     collarScore = collarTracker.getScore();
@@ -86,6 +89,7 @@ public class Outfit implements Comparable<Outfit>{
             bottomShoeScore * FashionMap.BOTTOM_SHOE_SCORE_WEIGHT+
             colorScore * FashionMap.COLOR_SCORE_WEIGHT+
             formalityScore * FashionMap.FORMALITY_SCORE_WEIGHT+
+            temperatureScore * FashionMap.TEMPERATURE_SCORE_WEIGHT+
             FashionMap.SCORE_CONSTANT;
   }
 
@@ -97,12 +101,24 @@ public class Outfit implements Comparable<Outfit>{
 
         FrontConnection f2 = topStack.getTop(j-1-i).getFrontConnection();
         Comparison c = FashionMap.compareFrontConnections(f1, f2);
-        f1.setImpact(c.getUpperImpact());
-        f2.setImpact(c.getLowerImpact());
+        f2.addImpact(c.getLowerImpact());
 
         frontConnectionTracker.add(c);
 
       }
+    }
+    for(int k = 1; k<size-1; k++){
+      topStack.getTop(k).getFrontConnection().setImpact();
+    }
+  }
+
+  public void compareTemperatures(){
+    if(topStack.isComplete()){
+      temperatureScore = temperature.getScore(temp);
+    }
+    else{
+      temperatureScore = temperature.getScore(temp + FashionMap.BOTTOM_LAYER_THICKNESS_ADDITION
+                       * (topStack.getBottomLayer.getLooseness() - FashionMap.BOTTOM_LAYER_LOOSENESS));
     }
   }
 
@@ -113,9 +129,8 @@ public class Outfit implements Comparable<Outfit>{
         Collar c1 = topStack.getTop(j).getCollar();
         Collar c2 = topStack.getTop(j-1-i).getCollar();
         Comparison c = CompareMap.compareCollars(c1, c2);
-        c1.setImpact(c.getUpperImpact());
         c2.setImpact(c.getLowerImpact());
-        ImpactTracker.add(c);
+        CollarTracker.add(c);
       }
     }
   }
@@ -127,7 +142,6 @@ public class Outfit implements Comparable<Outfit>{
         Sleeve s1 = topStack.getTop(j).getSleeve();
         Sleeve s2 = topStack.getTop(j-1-i).getSleeve();
         Comparison c = CompareMap.compareSleeves(s1, s2);
-        s1.setImpact(c.getUpperImpact());
         s2.setImpact(c.getLowerImpact());
         SleeveTracker.add(c);
       }
@@ -141,8 +155,6 @@ public class Outfit implements Comparable<Outfit>{
         TopWaist t1 = topStack.getTop(j).getTopWaist();
         TopWaist t2 = topStack.getTop(j-1-i).getTopWaist();
         Comparison c = CompareMap.compareTopWaists(t1, t2);
-        t1.setImpact(c.getUpperImpact());
-        t2.setImpact(c.getLowerImpact());
         TopWaistTracker.add(c);
       }
     }
@@ -155,7 +167,6 @@ public class Outfit implements Comparable<Outfit>{
         Design d1 = topStack.getTop(j).getDesign();
         Design d2 = topStack.getTop(j-1-i).getDesign();
         Comparison c = CompareMap.compareDesigns(d1, d2);
-        d1.setImpact(c.getUpperImpact());
         d2.setImpact(c.getLowerImpact());
         DesignTracker.add(c);
       }
@@ -167,12 +178,31 @@ public class Outfit implements Comparable<Outfit>{
 <<<<<<< HEAD
 
 =======
-  public void doTemperatures(){
-
+  public void setTemperature(){
+    int tempSum = 0;
+    double magSum = 0;
+    double impSum = 0;
+    for(Top top: tops){
+      top.setTemperature();
+      tempSum += top.getTemperature().getApprox();
+      magSum += top.getTemperature().getMagnitude();
+      impSum += top.getTemperature().getImpact();
+    }
+    temperature = new Temperature(tempSum, magSum/topStack.size(), impSum/topStack.size());
   }
->>>>>>> 56ce478973fdfa035a259539fa9b6bda5daa3d29
+
 
   public void doColors(){
+
+    for(Top top: topStack.getTops()){
+      colorTracker.addColor(top.getDesign().getMainColor());
+      colorTracker.addColor(top.getCollar().getColor());
+      colorTracker.addColor(top.getSleeve().getColor());
+      for(Color c: top.getDesign.getOtherColors()){
+        colorTracker.addColor(c);
+      }
+
+    }
 
   }
 
@@ -187,8 +217,11 @@ public class Outfit implements Comparable<Outfit>{
     //etc
   }
 
-  public double getScore(){
+  public double getScore(temp){
+
+    calculateScores();
     return score;
+
   }
   // trackers need gets
 }

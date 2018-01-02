@@ -35,6 +35,9 @@ public class Formality
         return max;
     }
 
+    public void multiplyImpact(double d){
+      impact *= d;
+    }
     /**
      *  returns the impact of the formality
      *  @return impact

@@ -20,6 +20,8 @@ public class TopWaist extends WaistFactor{
     return waistType;
   }
 
+
+
   /**
   *returns the formality of waist being stored
   *@return formality

@@ -12,11 +12,10 @@ public class Top extends Piece{
 	private Design design;
 	private Material lining;
 	private FrontConnection frontConnection;
-	private ArrayList<Color> colors;
 	private double frontImpact;
 
 	//inherited from the Piece super class
-	//private Temperature temperature;
+	private Temperature temperature;
 	//private Formality formality;
 
 
@@ -38,6 +37,7 @@ public class Top extends Piece{
 		design = d;
 		colors = ac;
 		frontImpact = 1;
+
 	}
 
 	/**
@@ -144,15 +144,10 @@ public class Top extends Piece{
 		return frontConnection;
 	}
 
-<<<<<<< HEAD
 	public void setFrontConnectionMode(FrontConnectionMode mode){
-		frontConnection.setFrontConnectionMode(FrontConnectionMode mode);
-=======
-	public void setFrontConnectionMode(Object mode){
-		mode = (FrontConnectionMode)(mode);
-		//frontConnection.setFrontConnectionMode(FrontConnectionMode mode);
+
+		frontConnection.setFrontConnectionMode(mode);
 		// recursive method call, what's happening here?
->>>>>>> 56ce478973fdfa035a259539fa9b6bda5daa3d29
 	}
 
 	public void calculateTemperature(){
@@ -193,5 +188,25 @@ public class Top extends Piece{
 
 	public Top clone(){
 		return this; // I need to write this in
+	}
+
+	public void setTemperature(){
+
+		double matA = material.getTemperature().getApprox();
+		double matM = material.getTemperature().getMagnitude();
+		double matI = material.getTemperature().getImpact();
+
+		double sleA = sleevelength.getTemperature().getApprox();
+		double sleM = sleevelength.getTemperature().getMagnitude();
+		double sleI = sleevelength.getTemperature().getImpact();
+
+		double linA = lining.getTemperature().getApprox();
+		double linM = lining.getTemperature().getMagnitude();
+		double linI = lining.getTemperature().getImpact();
+
+		temperature = new Temperature((matA * matM
+				 + sleA * sleM
+		 		 + linA * linM)/
+				 (matM + sleM + linM), (matM + sleM + linM)/3, (matI + sleI + linI)/3);
 	}
 }

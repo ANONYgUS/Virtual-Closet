@@ -7,17 +7,21 @@ public class Design{
   private DesignType designType;
   // considering designs involve colors, design is prompted first
   // then when main and other colors are prompted, these values determine the impact of those colors
-  private double mainColorImpact;
-  private double otherColorImpact;
+  private Color mainColor;
+  private ArrayList<Color> otherColors;
 
   /**
   * constructor for design objects
   */
-  public Design(DesignType d){
+  public Design(DesignType d, Color mC, ArrayList<Color> oC){
     name = d.toString();
     formality = d.getFormality();
-    mainColorImpact = d.getMainColorImpact();
-    otherColorImpact = d.getOtherColorImpact();
+    mainColor = mC;
+    mainColor.setImpact(d.getMainColorImpact());
+    otherColors = oC;
+    for(Color c; oC){
+      c.setImpact(d.getOtherColorImpact());
+    }
   }
 
   /**

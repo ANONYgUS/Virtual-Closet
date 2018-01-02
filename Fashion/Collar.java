@@ -8,11 +8,13 @@ public class Collar {
   private String name;
   private Color color;
   private Formality formality;
+  private double impact;
 
   public Collar(CollarType cT){
     collarType = cT;
     name = cT.toString();
     formality = cT.getFormality();
+    impact = 1;
   }
 
   /**
@@ -21,6 +23,12 @@ public class Collar {
   */
   public CollarType getCollarType(){
     return collarType;
+  }
+
+  public void setImpact(double d){
+    impact *= d;
+    color.multiplyImpact(d);
+    formality.multiplyImpact(d);
   }
 
   /**

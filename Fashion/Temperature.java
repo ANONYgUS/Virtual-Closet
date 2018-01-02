@@ -4,14 +4,15 @@ public class Temperature{
 
   private double impact;
   private int approx;
-  private int range;
-  private int quantity;
+  private double magnitude;
 
   /**
   * constructor for temperature objects
   */
-  public Temperature(){
-
+  public Temperature(double i, int a, double m){
+    impact = i;
+    approx = a;
+    magnitude = m;
   }
 
   /**
@@ -20,6 +21,9 @@ public class Temperature{
   */
   public double getImpact(){
     return impact;
+  }
+  public double getMagnitude(){
+    return magnitude;
   }
 
   /**
@@ -30,15 +34,8 @@ public class Temperature{
     return approx;
   }
 
-  /**
-  * returns the radius of the range of acceptable temperatures of the factor of clothing
-  * @return radius of range of acceptable temperatures
-  */
-  public int getApprox(){
-    return range;
-  }
 
   public double getScore(int t){
-
+      return impact * (Math.abs(t-approx)) * FashionMap.TEMPERATURE_SCORE_CONSTANT;
   }
 }

@@ -68,86 +68,12 @@ public class Closet
     public void wash(){
     }
 
-    /**
-     * all possible outfits given temperature and formality
-     * @param temp temperature
-     * @param f formality
-     */
-    public ArrayList<Outfit> getOutfits(int temp, Formality f){
 
-      ArrayList<Outfit> returned = new ArrayList<Outfit>();
-      ArrayList<TopStack> topStacks = getTopStacks();
 
-      for (TopStack stack: topStacks){
-        for (Bottom b: bottoms){
-          for (Shoe s: shoes){
-            returned.add(new Outfit(stack, b, s));
-          }
-        }
-      }
-      return returned;
-    }
 
-    public ArrayList<TopStack> getTopStacks(){
 
-      ArrayList<TopStack> returned = new ArrayList<TopStack>();
 
-      // first, each top that could be worn alone needs to be added
-      for(Top top: tops){
-        if (top.getLooseness() <= FashionMap.MAX_LOOSENESS_DIFF){
-            Top clone = top.clone();
-          for(Object mode: top.getFrontConnection().getModes()){
-            mode = (FrontConnectionMode)(mode);
-            clone.setFrontConnectionMode(mode);
-            TopStack stack = new TopStack();
-            stack.add(clone);
-            returned.add(stack);
-          }
-        }
-      }
-
-// then, for each top that could be worn alone, all combinations of tops that could be thrown on top are added
-      for(int i = 0; i<returned.size(); i++){
-        TopStack stack = returned.get(i);
-        for(Top t: tops){
-          if(t.getLooseness() >= stack.getThickness() // makes sure a top would fit on top of the stack
-          && t.getLooseness() - stack.getThickness() >= FashionMap.MAX_LOOSENESS_DIFF) // makes sure it's not too loose
-          {
-            Top tClone = t.clone();
-            for(Object mode: t.getFrontConnection().getModes()){
-              mode = (FrontConnectionMode)(mode);
-              tClone.setFrontConnectionMode(mode);
-              TopStack sClone = stack.clone();
-              sClone.add(tClone);
-              returned.add(sClone);
-            }
-          }
-        }
-      }
-
-      return returned;
-    }
-
-    /**
-     * picks some of the best outfits given possible outfits
-     * @param list list of possible outfits
-     * @return list of best outfits
-     */
-    public ArrayList<Outfit> bestOutfits(ArrayList<Outfit> list){
-      TreeSet<Outfit> tree = new TreeSet<Outfit>();
-      ArrayList<Outfit> returned = new ArrayList<Outfit>();
-
-      for(Outfit o: list){
-        tree.add(o);
-      }
-
-      for(int i=0; i<FashionMap.BEST_OUTFITS_SIZE; i++){
-        returned.add(tree.pollLast());
-      }
-      return returned;
-    }
-
-    public Shoe pickShoe(){
+    public Shoe pickShoe(int temp){
       ArrayList<Shoe> bestShoes = new ArrayList<shoe>();
       ArrayList<double> scores = new ArrayList<double>();
       double sum = 0;
@@ -175,7 +101,32 @@ public class Closet
       }
     }
 
-    public Bottom pickBottom(Shoe shoe){
+    public Shoe pickShoe(Bottom bottom, int temp){
+      ArrayList<Shoe> candidates = new ArrayList<Shoe>();
+      ArrayList<double> scores = new ArrayList<double>();
+
+      for(Shoe shoe: shoes){
+        double cScore = CompareMap.compareBottomShoe(bottom, shoe);
+        double tScore = shoe.getTemperature.getScore(temp);
+        scores.add(cScore*FashionMap.C_SCORE_WEIGHT +
+                   tScore*FashionMap.T_SCORE_WEIGHT);
+
+        if(cScore > FashionMap.BOTTOM_SHOE_SCORE_CUTOFF &&
+           tScore > FashionMap.TEMPERATURE_SCORE_CUTOFF){
+             candidates.add(shoe);
+           }
+      }
+
+      if(candidates.isEmpty()){
+        return shoes.get(scores.indexOf(Collections.max(scores)));
+      }
+      else{
+        int size = candidates.size();
+        return candidates.get(Math.random() * size);
+      }
+    }
+
+    public Bottom pickBottom(Shoe shoe, int temp){
 
       ArrayList<Bottom> candidates = new ArrayList<Bottom>();
       ArrayList<double> scores = new ArrayList<double>();
@@ -183,6 +134,8 @@ public class Closet
       for(Bottom bottom: bottoms){
         double cScore = CompareMap.compareBottomShoe(bottom, shoe);
         double tScore = bottom.getTemperature.getScore(temp);
+        scores.add(cScore*FashionMap.C_SCORE_WEIGHT +
+                   tScore*FashionMap.T_SCORE_WEIGHT);
 
         if(cScore > FashionMap.BOTTOM_SHOE_SCORE_CUTOFF &&
            tScore > FashionMap.TEMPERATURE_SCORE_CUTOFF){
@@ -201,10 +154,10 @@ public class Closet
 
     }
 
-    public Outfit pickTopStack(Shoe shoe, Bottom bottom){
+    public Outfit pickTopStack(Shoe shoe, Bottom bottom, int temp){
       TopStack returned = new TopStack();
 
-      for(int i=0; i<4; i++){
+      for(int i=0; i<FashionMap.MAX_LAYERS; i++){
         ArrayList<Outfit> candidates = new ArrayList<Outfit>();
         ArrayList<Outfit> all = new ArrayList<Outfit>();
 
@@ -214,7 +167,7 @@ public class Closet
           if(i==0 || top.getThickness() < returned.getBottomLayer().getLooseness()) {
             clone.addLower(top);
             Outfit outfit = new Outfit(clone, bottom, shoe);
-            if(outfit.getScore() > FashionMap.OUTFIT_CUTOFF_SCORE){
+            if(outfit.getScore(temp) > FashionMap.OUTFIT_CUTOFF_SCORE){
               candidates.add(outfit);
             }
             all.add(outfit);
@@ -223,7 +176,7 @@ public class Closet
         if(candidates.isEmpty()){
           Outfit best = FashionMap.NULL_OUTFIT;
           for(Outfit candidate: candidates){
-            if(candidate.getScore() > best.getScore()){
+            if(candidate.getScore(temp) > best.getScore(temp)){
               best = candidate;
             }
           }
@@ -235,7 +188,7 @@ public class Closet
         }
         else{
           int size = candidates.size();
-          Outfit random = candidates.get(Math.random() * size);
+          Outfit random = candidates.get((int)(Math.random() * size));
           TopStack randomStack = random.getTopStack();
           if(randomStack.isComplete()){
             return random;
@@ -243,6 +196,20 @@ public class Closet
           returned.addLower(randomStack.getBottomLayer());
         }
       }
+
+    }
+
+    public Outfit pickOutfit(int temp){
+      Shoe shoe = pickShoe(temp);
+      return pickTopStack(shoe, pickBottom(shoe, temp), temp);
+    }
+
+    public Outfit pickOutfit(int temp, Shoe shoe){
+      return pickTopStack(shoe, pickBottom(shoe, temp), temp);
+    }
+
+    public Outfit pickOutfit(int temp, Bottom bottom){
+      return pickTopStack(pickShoe(bottom, temp), bottom, temp);
 
     }
 

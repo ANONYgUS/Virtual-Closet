@@ -52,6 +52,9 @@ public class Color{
   public double getImpact(){
     return impact;
   }
+  public void multiplyImpact(double d){
+    impact*=d;
+  }
 
   public double getSaturationImpact(){
     return saturation * FashionMap.SATURATION_IMPACT_FACTOR;
